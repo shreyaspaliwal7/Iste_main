@@ -22,7 +22,7 @@ const Navbar = () => {
         <img src="https://www.istemanit.in/static/media/ISTElogo.a74f1bcec9b36f8b044934b3c92f6b69.svg" alt="" />
 
         {/* Navigation Links */}
-        <ul className="hidden md:flex items-center gap-8 z-10">
+        <ul className="hidden md:flex items-center gap-8 z-10 lg:gap-6">
           {navLinks.map((link) => (
             <li key={link.name}>
               <a

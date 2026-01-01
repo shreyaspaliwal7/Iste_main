@@ -1,0 +1,60 @@
+.eventContainer {
+	width: 80%;
+	z-index: 10;
+	margin: auto;
+	display: grid;
+	margin: auto;
+	grid-template-columns: 47.5% 5% 47.5%;
+	place-items: center;
+
+	padding: 50px;
+}
+
+.eventBG {
+	padding-block: 0.5rem;
+	width: 100%;
+	margin-inline: auto;
+	background: url('../../assets/Backgrounds/bg7.jpg');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.bg {
+	background-image: url('../../assets/Backgrounds/bg5.jpg');
+	min-height: 500px;
+	background-attachment: fixed;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	padding-block: 100px;
+}
+
+.heading {
+	text-align: center;
+	/* padding-top: 100px; */
+	color: #f06f2b;
+	font-size: 54px;
+	font-weight: 400;
+}
+
+@media (max-width: 900px) {
+	.eventContainer {
+		width: 100%;
+	}
+}
+
+@media (max-width: 800px) {
+	.eventContainer {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		padding: 25px;
+		width: 88%;
+	}
+
+	.eventBG {
+		padding: 0;
+	}
+}

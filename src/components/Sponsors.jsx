@@ -1,0 +1,46 @@
+import React, { useMemo } from 'react';
+import Reveal from './Reveal';
+
+const Sponsors = () => {
+    // Dynamically import all images from the sponsors folder
+    // Eager load paths, but let browser handle lazy fetching of actual images via loading="lazy"
+    const images = import.meta.glob('../assets/sponsors/*.{png,jpeg,jpg,svg,jfif,PNG,JPG,JPEG}', { eager: true });
+
+    // Convert object to array of values (module exports) and extract default export (the url)
+    // Slice to first 20 if needed, or just map all. User mentioned "nearly 20 photos", so displaying all found is safest.
+    const sponsorList = useMemo(() => Object.values(images).map(img => img.default), [images]);
+
+    return (
+        <section className="bg-footer-bg w-full py-16">
+            <div className="container mx-auto px-8 md:px-12">
+                {/* Title */}
+                <div className="text-center mb-12">
+                    <h2 className="text-white font-paytone text-4xl tracking-wide uppercase">
+                        OUR SPONSORS
+                    </h2>
+                </div>
+
+                {/* Grid */}
+                {/* Grid logic: 2 columns on mobile, 4 columns on desktop (md) */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+                    {sponsorList.map((src, index) => (
+                        <Reveal key={index} delay={index * 20} className="h-full">
+                            <div
+                                className="bg-[#1A1A1A] border border-white/10 rounded-2xl h-36 flex items-center justify-center p-6 hover:scale-105 hover:border-[#BC9040] hover:shadow-[0_0_15px_rgba(188,144,64,0.3)] transition-all duration-300"
+                            >
+                                <img
+                                    src={src}
+                                    alt={`Sponsor ${index + 1}`}
+                                    className="max-w-full max-h-full object-contain"
+                                    loading="lazy"
+                                />
+                            </div>
+                        </Reveal>
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
+};
+
+export default Sponsors;

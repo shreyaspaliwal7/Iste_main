@@ -11,7 +11,7 @@ const Hero = () => {
                 <img className='absolute h-full bg-cover w-full -z-40 hidden md:block' src="\Images\914.jpg" alt="" />
                 <img className='absolute w-full h-full bg-cover -z-40 block md:hidden' src="\Images\914 (1).jpg" alt="" />
                 <img className='absolute w-full h-full bg-cover -z-40 block sm:hidden' src="\Images\914 (2).jpg" alt="" />
-                <div className="mt-10 flex flex-col items-center justify-center min-h-screen gap-10 px-4 text-center">
+                <div className="mt-10 flex flex-col items-center justify-center min-h-[94vh] gap-10 px-4 text-center">
                     {/* Title with "Outlined" / Multiline effect */}
                     <h1 className="text-5xl md:text-7xl font-bold tracking-tighter mb-6">
                         <span className=" fonthead text-transparent bg-clip-text bg-gradient-to-b from-orange-400 to-orange-600 drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]"
@@ -43,21 +43,8 @@ const Hero = () => {
                         <a href="https://www.linkedin.com/company/iste-sc-manit" className="hover:opacity-80 transition-opacity bg-white text-black rounded-lg p-1 h-[40px] w-[40px] flex items-center justify-center">
                             <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
                         </a>
-
-                        {/* Instagram - Circular variant from image */}
-                        {/* <a href="#" className="bg-white border-2 border-gray-300 p-2 rounded-full shadow-inner hover:scale-110 transition-transform">
-                        <div className="bg-black text-white rounded-full p-1">
-                            <FaInstagram size={18} />
-                        </div>
-                    </a> */}
-
-                        {/* Facebook */}
-                        {/* <a href="#" className="bg-black text-white p-3 rounded-sm hover:scale-110 transition-transform">
-                        <FaFacebookF size={24} />
-                    </a> */}
                     </div>
                 </div>
-            {/* </div> */}
         </div>
     )
 }

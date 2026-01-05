@@ -4,6 +4,7 @@ import AboutUs from './components/About Us/Aboutus';
 import Footer from './components/Footer';
 import Sponsors from './components/Sponsors';
 import Events from './components/Events';
+import OldMembers from './components/OldMembers/OldMembers';
 import './App.css';
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
       <AboutUs/>
       <Events />
       <Sponsors />
+      <OldMembers />
       <Footer />
     </div>
   );

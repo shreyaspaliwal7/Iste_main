@@ -5,6 +5,7 @@ import Footer from './components/Footer';
 import Sponsors from './components/Sponsors';
 import Events from './components/Events';
 import OldMembers from './components/OldMembers/OldMembers';
+import Gallery from './components/Gallery/Gallery';
 import './App.css';
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
       <Events />
       <Sponsors />
       <OldMembers />
+      <Gallery />
       <Footer />
     </div>
   );

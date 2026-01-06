@@ -125,7 +125,7 @@ const OldMembers = () => {
 
   const ProfileCard = ({ member }) => {
     return (
-      <div className="bg-[#151515] rounded-3xl p-6 flex flex-col items-center text-white shadow-[0_20px_40px_rgba(0,0,0,0.45)] border border-white/10 hover:border-[#F06F2B] transition-all duration-300">
+      <div className="bg-[#151515] rounded-3xl p-6 flex flex-col items-center text-white shadow-[0_20px_40px_rgba(0,0,0,0.45)] border border-white/10 hover:border-[#F06F2B] transition-all duration-300 hover:shadow-[0_0_40px_rgba(240,111,43,0.9)] hover:-translate-y-1 hover:scale-[1.02]">
         <div className="flex flex-col items-center space-y-4">
           <div className="w-32 h-32 rounded-full overflow-hidden border-[3px] border-[#d6c84a] shadow-[0_12px_24px_rgba(0,0,0,0.35)]">
             <img

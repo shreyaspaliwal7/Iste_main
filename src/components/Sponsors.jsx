@@ -11,7 +11,7 @@ const Sponsors = () => {
     const sponsorList = useMemo(() => Object.values(images).map(img => img.default), [images]);
 
     return (
-        <section className=" w-full py-16" id='sponsors'>
+        <section className="bg-footer-bg w-full py-16">
             <div className="container mx-auto px-8 md:px-12">
                 {/* Title */}
                 <div className="text-center mb-12">

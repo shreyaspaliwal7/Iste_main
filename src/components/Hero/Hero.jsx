@@ -4,13 +4,13 @@ import "./Hero.css"
 
 const Hero = () => {
     return (
-        <div id='home'>
+        <div>
             {/* <div className="w-full bg-cover bg-center bg-no-repeat transition-all duration-500
                     bg-[url('\Images\3284223 (1).jpg')] 
                     md:bg-[url('\Images\3284223.jpg')]"> */}
-                <img className='absolute h-full bg-cover w-full -z-10 hidden md:block' src="\Images\914.jpg" alt="" />
-                <img className='absolute w-full h-full bg-cover -z-10 block md:hidden' src="\Images\914 (1).jpg" alt="" />
-                <img className='absolute w-full h-full bg-cover -z-10 block sm:hidden' src="\Images\914 (2).jpg" alt="" />
+                <img className='absolute h-full bg-cover w-full -z-40 hidden md:block' src="\Images\914.jpg" alt="" />
+                <img className='absolute w-full h-full bg-cover -z-40 block md:hidden' src="\Images\914 (1).jpg" alt="" />
+                <img className='absolute w-full h-full bg-cover -z-40 block sm:hidden' src="\Images\914 (2).jpg" alt="" />
                 <div className="mt-10 flex flex-col items-center justify-center min-h-[94vh] gap-10 px-4 text-center">
                     {/* Title with "Outlined" / Multiline effect */}
                     <h1 className="text-5xl md:text-7xl font-bold tracking-tighter mb-6">

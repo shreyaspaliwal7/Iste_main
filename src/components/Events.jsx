@@ -98,7 +98,7 @@ const Events = () => {
     };
 
     return (
-        <section className=" w-full py-16 relative overflow-hidden" id='events'>
+        <section className="bg-footer-bg w-full py-16 relative overflow-hidden">
             <div className="container mx-auto px-12 md:px-32 relative z-10">
                 <div className="text-center mb-12">
                     <h2 className="text-white font-paytone text-4xl tracking-wide uppercase">

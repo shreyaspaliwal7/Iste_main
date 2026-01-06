@@ -5,7 +5,7 @@
 @tailwind utilities;
 
 body {
-  background-color: #141414;
+  background-color: black;
 }
 
 /* Custom Scrollbar */

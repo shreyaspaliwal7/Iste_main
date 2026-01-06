@@ -6,7 +6,7 @@ import locationIcon from '../assets/location.png';
 
 const Footer = () => {
     return (
-        <footer className="bg-footer-bg text-white font-paytone w-full pt-10 pb-8">
+        <footer className="bg-footer-bg text-white font-paytone w-full pt-10 pb-8" id='contact'>
             {/* Main Title */}
             <Reveal>
                 <div className="text-center mb-8">

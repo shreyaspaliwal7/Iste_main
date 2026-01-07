@@ -3,14 +3,7 @@ import React from 'react';
 
 const AboutPage = () => {
     return (
-        <div className="min-h-screen bg-[#F8F9FA] flex items-center justify-center text-[#1A1A1A] font-sans pb-20 relative">
-            <div className="absolute inset-0 z-0">
-                <img
-                    src="\Images\Screenshot 2026-01-03 111819.png"
-                    alt="Office Background"
-                    className="w-full h-full object-cover"
-                />
-            </div>
+        <div className="min-h-screen  flex items-center justify-center text-[#1A1A1A] font-sans pb-20 relative" id='about'>
 
             <h2 className='absolute text-4xl font-paytone top-10 right-[45%] text-white z-50 '>ABOUT US</h2>
 

@@ -5,7 +5,7 @@ const AboutPage = () => {
     return (
         <div className="min-h-screen  flex items-center justify-center text-[#1A1A1A] font-sans pb-20 relative" id='about'>
 
-            <h2 className='absolute text-4xl font-paytone top-10 right-[45%] text-white z-10 '>ABOUT US</h2>
+            <h2 className='absolute text-4xl font-paytone top-20 right-[45%] text-white z-10 '>ABOUT US</h2>
 
             <main className=" max-w-6xl mx-auto mt-16 px-6 space-y-24">
 

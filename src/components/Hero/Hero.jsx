@@ -6,9 +6,23 @@ const Hero = () => {
     return (
         <div>
 
-            <img className='absolute h-full bg-cover w-full -z-10 hidden md:block' src="\Images\914.jpg" alt="" />
-            <img className='absolute w-full h-full bg-cover -z-10 block md:hidden' src="\Images\914 (1).jpg" alt="" />
-            <img className='absolute w-full h-full bg-cover -z-10 block sm:hidden' src="\Images\914 (2).jpg" alt="" />
+            {/* Desktop Image */}
+            <div
+                className='absolute inset-0 w-full h-full bg-cover bg-center bg-fixed -z-10 hidden md:block'
+                style={{ backgroundImage: `url('/Images/914.jpg')` }}
+            />
+
+            {/* Tablet Image */}
+            <div
+                className='absolute inset-0 w-full h-full bg-cover bg-center bg-fixed -z-10 block md:hidden'
+                style={{ backgroundImage: `url('/Images/914 (1).jpg')` }}
+            />
+
+            {/* Mobile Image */}
+            <div
+                className='absolute inset-0 w-full h-full bg-cover bg-center bg-fixed -z-10 block sm:hidden'
+                style={{ backgroundImage: `url('/Images/914 (2).jpg')` }}
+            />
             <div className="mt-10 flex flex-col items-center justify-center min-h-[94vh] gap-10 px-4 text-center">
 
                 <h1 className="text-5xl md:text-7xl font-bold tracking-tighter mb-6">

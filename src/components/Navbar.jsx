@@ -54,11 +54,11 @@ const Navbar = () => {
 
   return (
     <nav className="fixed top-4 left-1/2 -translate-x-1/2 w-[95%] max-w-7xl z-50">
-      <div className="bg-black/70 backdrop-blur-md rounded-full px-6 md:px-8 py-1 flex items-center justify-between border border-white/10 shadow-2xl relative">
+      <div className="bg-black/70 backdrop-blur-md rounded-full px-6 md:px-8 py-2 flex items-center justify-between border border-white/10 shadow-2xl relative">
 
 
         <img
-          className='w-15 md:w-15 py-1'
+          className='w-20 md:w-20 py-1'
           src="https://www.istemanit.in/static/media/ISTElogo.a74f1bcec9b36f8b044934b3c92f6b69.svg"
           alt="ISTE Logo"
         />

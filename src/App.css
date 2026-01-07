@@ -1,24 +1,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Monoton&display=swap');
 
-/* Smooth fade/blur/slide-in for collapsible content */
+
 @keyframes fadeInUpBlur {
-  0% {
-    opacity: 0;
-    transform: translateY(22px);
-    filter: blur(12px);
-  }
-  60% {
-    opacity: 1;
-    transform: translateY(0);
-    filter: blur(4px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-    filter: blur(0);
-  }
+    0% {
+        opacity: 0;
+        transform: translateY(22px);
+        filter: blur(12px);
+    }
+
+    60% {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(4px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
 }
 
 .animate-fadeInUpBlur {
-  animation: fadeInUpBlur 2s ease forwards;
+    animation: fadeInUpBlur 2s ease forwards;
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import style from './EventModal.module.css';
-// import Button from '../UI/Button';
+
 import { Typography } from '@mui/material';
 import { DateRange } from '@mui/icons-material';
 import { Button } from '@mui/material';

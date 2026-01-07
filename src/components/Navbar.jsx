@@ -1,40 +1,76 @@
 
 
 import React, { useState } from 'react';
-import { Menu, X } from 'lucide-react'; // Install: npm install lucide-react
+import { Menu, X } from 'lucide-react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const navLinks = [
-    { name: 'HOME', href: '#home' },
-    { name: 'ABOUT US', href: '#about' },
-    { name: 'EVENTS', href: '#events' },
-    { name: 'SPONSORS', href: '#sponsors' },
-    { name: 'OUR TEAM', href: '#team' },
-    { name: 'CONTACT US', href: '#contact' },
+    { name: 'HOME', href: '/', type: 'link' },
+    { name: 'ABOUT US', href: '#about', type: 'hash' },
+    { name: 'EVENTS', href: '#events', type: 'hash' },
+    { name: 'SPONSORS', href: '#sponsors', type: 'hash' },
+    location.pathname === '/new-team'
+      ? { name: 'OLD TEAM', href: '/old-members', type: 'link' }
+      : { name: 'OUR TEAM', href: '/new-team', type: 'link' },
+    { name: 'GALLERY', href: '/gallery', type: 'link' },
+    { name: 'CONTACT US', href: '/contact-positions', type: 'link' },
   ];
+
+  const handleNavClick = (e, link) => {
+    e.preventDefault();
+    setIsOpen(false);
+
+    if (link.type === 'link') {
+      navigate(link.href);
+      window.scrollTo(0, 0);
+    } else {
+      // Handle Hash Links
+      if (location.pathname !== '/') {
+        // If not on home, go to home then scroll
+        navigate('/');
+        setTimeout(() => {
+          const element = document.getElementById(link.href.substring(1));
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 100);
+      } else {
+        // Already on home, just scroll
+        const element = document.getElementById(link.href.substring(1));
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    }
+  };
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
     <nav className="fixed top-4 left-1/2 -translate-x-1/2 w-[95%] max-w-7xl z-50">
       <div className="bg-black/70 backdrop-blur-md rounded-full px-6 md:px-8 py-1 flex items-center justify-between border border-white/10 shadow-2xl relative">
-        
-        {/* Logo */}
-        <img 
-          className='w-15 md:w-15 py-1' 
-          src="https://www.istemanit.in/static/media/ISTElogo.a74f1bcec9b36f8b044934b3c92f6b69.svg" 
-          alt="ISTE Logo" 
+
+
+        <img
+          className='w-15 md:w-15 py-1'
+          src="https://www.istemanit.in/static/media/ISTElogo.a74f1bcec9b36f8b044934b3c92f6b69.svg"
+          alt="ISTE Logo"
         />
 
-        {/* Desktop Links (Hidden on Mobile) */}
+
         <ul className="hidden md:flex items-center gap-8 lg:gap-6">
           {navLinks.map((link) => (
             <li key={link.name}>
               <a
                 href={link.href}
-                className="text-white text-sm font-semibold hover:text-orange-400 transition-colors duration-300 tracking-wide"
+                onClick={(e) => handleNavClick(e, link)}
+                className="text-white text-sm font-semibold hover:text-orange-400 transition-colors duration-300 tracking-wide cursor-pointer"
               >
                 {link.name}
               </a>
@@ -42,10 +78,10 @@ const Navbar = () => {
           ))}
         </ul>
 
-        {/* Hamburger Icon (Shown on Mobile only) */}
+
         <div className="md:hidden flex items-center">
-          <button 
-            onClick={toggleMenu} 
+          <button
+            onClick={toggleMenu}
             className="text-white p-2 focus:outline-none"
             aria-label="Toggle Menu"
           >
@@ -54,7 +90,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Menu Dropdown */}
+
       {isOpen && (
         <div className="absolute top-16 left-0 w-full md:hidden transition-all duration-300">
           <ul className="bg-black/90 backdrop-blur-xl border border-white/10 rounded-3xl p-6 flex flex-col items-center gap-6 shadow-2xl">
@@ -62,8 +98,8 @@ const Navbar = () => {
               <li key={link.name}>
                 <a
                   href={link.href}
-                  onClick={() => setIsOpen(false)} // Close menu when link is clicked
-                  className="text-white text-lg font-semibold hover:text-orange-400 transition-colors"
+                  onClick={(e) => handleNavClick(e, link)}
+                  className="text-white text-lg font-semibold hover:text-orange-400 transition-colors cursor-pointer"
                 >
                   {link.name}
                 </a>

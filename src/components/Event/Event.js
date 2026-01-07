@@ -53,7 +53,7 @@ const Event = (props) => {
 				<Skeleton
 					variant="rectangular"
 					width={'104%'}
-					// height={'100%'}
+
 					sx={{ borderRadius: '13px' }}
 					height="280px"
 					animation="wave"

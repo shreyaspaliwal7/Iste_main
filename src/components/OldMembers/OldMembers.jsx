@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import ashayImg from '../../assets/team_img/ashay.jpg';
 
 const OldMembers = () => {
-  // Sample data - replace with actual members and photos
+
   const batch2027 = [
     {
       id: 1,
@@ -44,7 +44,7 @@ const OldMembers = () => {
     },
   ];
 
-  // This will visually be shown as BATCH - 2026 (non-collapsible)
+
   const batch2026 = [
     {
       id: 1,
@@ -191,7 +191,7 @@ const OldMembers = () => {
       <div className="pointer-events-none absolute inset-0 opacity-60">
         {Array.from({ length: 14 }).map((_, idx) => (
           <span
-            // eslint-disable-next-line react/no-array-index-key
+
             key={idx}
             className="absolute left-1/2 top-1/2 h-[2px] w-[120%] origin-left bg-gradient-to-r from-[#F06F2B] via-transparent to-transparent"
             style={{ transform: `rotate(${idx * 12 - 45}deg)` }}
@@ -200,21 +200,21 @@ const OldMembers = () => {
       </div>
 
       <div className="relative max-w-7xl mx-auto">
-        {/* Title Section */}
+
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-bold mb-4 text-orange-500">
             CONTACTS OF VERTICAL HEAD
           </h1>
         </div>
 
-        {/* MEMBERS Section Heading */}
+
         <div className="mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-white text-center">
             MEMBERS
           </h2>
         </div>
 
-        {/* Batch 2026 Section - collapsible, black background when open */}
+
         <div className="mb-14">
           <button
             type="button"
@@ -250,7 +250,7 @@ const OldMembers = () => {
           </AnimatePresence>
         </div>
 
-        {/* Batch 2027 Section - collapsible, orange background (shown below 2026) */}
+
         <div className="mb-20">
           <button
             type="button"

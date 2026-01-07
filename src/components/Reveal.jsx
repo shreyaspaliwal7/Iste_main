@@ -9,7 +9,7 @@ const Reveal = ({ children, className = "", delay = 0 }) => {
             ([entry]) => {
                 if (entry.isIntersecting) {
                     setIsVisible(true);
-                    observer.disconnect(); // Only animate once
+                    observer.disconnect();
                 }
             },
             { threshold: 0.1 }

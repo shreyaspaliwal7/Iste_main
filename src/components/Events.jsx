@@ -110,7 +110,7 @@ const Events = () => {
                     {events.map((event, index) => (
                         <Reveal key={event.id} delay={index * 50} className="w-full h-full">
                             <div
-                                // Changed to dark gradient background and reduced padding
+
                                 className="bg-gradient-to-b from-[#2A2A2A] to-[#151515] rounded-2xl flex flex-col items-center justify-between p-6 md:p-8 min-h-[240px] md:min-h-[280px] h-full transition-transform duration-500 hover:scale-105 border border-white/10 w-full"
                                 style={{
                                     boxShadow: 'rgba(0, 0, 0, 0.4) 0px 30px 40px, rgba(0, 0, 0, 0.2) 0px -10px 20px'
@@ -123,9 +123,7 @@ const Events = () => {
                                         <img
                                             src={event.img}
                                             alt={event.name}
-                                            // Changed object-cover to object-contain to prevent cropping on small heights
-                                            // Removed p-6 from Codathon to keep sizing consistent
-                                            // Conditional styling: Larger height for specific events (isLarge)
+
                                             className={`w-full object-contain rounded-[10%] z-20 mb-3 
                                                 ${event.isLarge ? 'h-[150px] lg:h-[180px]' : 'h-[80px] lg:h-[100px]'}
                                                 ${event.isCodathon ? 'bg-transparent' : ''} 
@@ -137,7 +135,7 @@ const Events = () => {
                                 <div className="w-full flex justify-evenly items-center mt-1">
                                     <a
                                         href={event.link}
-                                        // Changed blue to Gold (#BC9040), removed underline, added hover brightness
+
                                         className="text-[#BC9040] text-[18px] text-center w-full py-[8px] no-underline hover:text-[#D4A550] transition-colors cursor-pointer"
                                         target="_blank"
                                         rel="noreferrer"
@@ -162,7 +160,7 @@ const Events = () => {
                     className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4 backdrop-blur-sm animate-fade-in"
                     onClick={closeModal}
                 >
-                    {/* Dark Theme Modal - Expanded Width & Reduced Layout */}
+
                     <div
                         className="bg-[#1A1A1A] border border-white/10 rounded-2xl w-full max-w-2xl lg:max-w-3xl p-6 md:p-8 relative shadow-2xl flex flex-col items-center max-h-[95vh] overflow-y-auto md:overflow-y-visible"
                         onClick={(e) => e.stopPropagation()}

@@ -1,11 +1,11 @@
-.eventStyle{
-    /* min-height: 350px; */
+.eventStyle {
+
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     border-radius: 15px;
-    z-index:20;
+    z-index: 20;
     margin-block-end: 1.5rem;
     margin-inline: 2rem;
     background: none;
@@ -14,7 +14,7 @@
     padding-inline: 5px;
 }
 
-.eventStyle:hover{
+.eventStyle:hover {
     box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 15px;
     cursor: pointer;
 }
@@ -25,22 +25,24 @@
     align-items: center;
     width: 100%;
 }
+
 .website {
     font-size: 20px;
     padding-block: 10px;
     border-radius: 3px;
     text-decoration: none;
     color: rgb(0, 122, 204);
-    /* background-color: #e8be01; */
+
     width: 100%;
     text-align: center;
 }
 
-@keyframes appear{
-    from{
+@keyframes appear {
+    from {
         opacity: 0;
     }
-    to{
+
+    to {
         opacity: 1;
     }
 }

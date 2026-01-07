@@ -6,8 +6,9 @@ import Sponsors from './components/Sponsors';
 import Events from './components/Events';
 import OldMembers from './components/OldMembers/OldMembers';
 import Gallery from './components/Gallery/Gallery';
+import ContactPositions from './components/ContactPositions';
+import NewTeam from './components/New Team/NewTeam';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Layout from './components/Layout';
 import Home from './components/Home';
 import './App.css';
 
@@ -42,8 +43,19 @@ function App() {
       </div>
       <Footer />
       <Gallery/>
-      {/* <ContactPositions /> */}
+      <ContactPositions/>
+      <NewTeam/>
     </div>
+    // <BrowserRouter>
+    //   <Routes>
+    //     {/* Use PageLayout as the wrapper */}
+    //     <Route path="/" element={<PageLayout />}>
+    //       <Route index element={<Home/>} />
+    //       <Route path="team" element={<OldMembers/>} />
+    //       <Route path="contact" element={<ContactPositions/>} />
+    //     </Route>
+    //   </Routes>
+    // </BrowserRouter>
   );
 }
 

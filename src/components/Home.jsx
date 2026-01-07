@@ -7,10 +7,11 @@ import Sponsors from './Sponsors';
 const Home = () => {
   return (
     <div>
-      <Hero />
+      {/* <Hero />
       <AboutUs />
       <Events />
-      <Sponsors />
+      <Sponsors /> */}
+      <h1 className='text-white'>Hello</h1>
     </div>
   );
 };

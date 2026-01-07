@@ -1,4 +1,5 @@
 
+
 import React, { useState } from 'react';
 import { Menu, X } from 'lucide-react'; // Install: npm install lucide-react
 
@@ -6,7 +7,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const navLinks = [
-    { name: 'HOME', href: '#' },
+    { name: 'HOME', href: '#home' },
     { name: 'ABOUT US', href: '#about' },
     { name: 'EVENTS', href: '#events' },
     { name: 'SPONSORS', href: '#sponsors' },

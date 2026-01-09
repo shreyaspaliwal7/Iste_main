@@ -10,7 +10,7 @@ const Home = () => {
   return (
     <div>
       <Hero />
-      <div className="relative">
+      <div className="relative min-h-screen">
 
         {/* The Fixed Perspective Lines */}
         <div className="bg-[#141414] fixed inset-0 -z-20 pointer-events-none overflow-hidden">

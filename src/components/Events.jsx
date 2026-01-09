@@ -122,7 +122,7 @@ const Events = () => {
                         <Reveal key={event.id} delay={index * 50} className="w-full h-full">
                             <div
 
-                                className="bg-gradient-to-br from-[#1F1F1F] via-[#121212] to-[#080808] rounded-2xl flex flex-col items-center justify-between p-6 md:p-8 min-h-[240px] md:min-h-[280px] h-full transition-all duration-300 hover:scale-105 border border-[#BC9040]/30 w-full hover:border-[#BC9040] hover:shadow-[0_0_25px_rgba(188,144,64,0.4),0_20px_30px_rgba(0,0,0,0.5)] group"
+                                className="bg-white/5 rounded-2xl flex flex-col items-center justify-between p-6 md:p-8 min-h-[240px] md:min-h-[280px] h-full transition-all duration-300 hover:scale-105 border border-[#f06f2b]/30 w-full hover:border-[#f06f2b] hover:shadow-[0_0_25px_rgba(188,144,64,0.4),0_20px_30px_rgba(0,0,0,0.5)] group"
                                 style={{
                                     boxShadow: 'rgba(0, 0, 0, 0.4) 0px 10px 20px'
                                 }}
@@ -130,7 +130,7 @@ const Events = () => {
                                 {loading ? (
                                     <div className="w-full h-[80px] md:h-[100px] bg-gray-800 animate-pulse rounded-[10%] mb-3"></div>
                                 ) : (
-                                    <div className="w-full p-0 m-0 flex justify-center items-center overflow-hidden">
+                                    <div className="w-full flex-1 flex justify-center items-center overflow-hidden">
                                         <img
                                             src={event.img}
                                             alt={event.name}
@@ -147,7 +147,7 @@ const Events = () => {
                                     <a
                                         href={event.link}
 
-                                        className="text-[#BC9040] text-[18px] text-center w-full py-[8px] no-underline hover:text-[#D4A550] transition-colors cursor-pointer"
+                                        className="text-[#f06f2b] text-[18px] text-center w-full py-[8px] no-underline hover:text-[#f06f2b] transition-colors cursor-pointer"
                                         target="_blank"
                                         rel="noreferrer"
                                     >
@@ -155,7 +155,7 @@ const Events = () => {
                                     </a>
                                     <button
                                         onClick={() => openModal(event)}
-                                        className="text-[#BC9040] text-[18px] text-center w-full py-[8px] bg-transparent border-none hover:text-[#D4A550] transition-colors cursor-pointer"
+                                        className="text-[#f06f2b] text-[18px] text-center w-full py-[8px] bg-transparent border-none hover:text-[#f06f2b] transition-colors cursor-pointer"
                                     >
                                         Know More
                                     </button>
@@ -183,7 +183,7 @@ const Events = () => {
                             &times;
                         </button>
 
-                        <h2 className="text-2xl md:text-3xl font-paytone text-[#BC9040] text-center mb-1 uppercase tracking-wide">{selectedEvent.heading}</h2>
+                        <h2 className="text-2xl md:text-3xl font-paytone text-[#f06f2b] text-center mb-1 uppercase tracking-wide">{selectedEvent.heading}</h2>
                         <h3 className="text-lg font-medium text-white text-center mb-2">{selectedEvent.title}</h3>
                         <div className="h-0.5 w-16 bg-[#BD9090] mb-4"></div>
                         <h4 className="text-sm text-gray-400 mb-6 uppercase tracking-widest">{selectedEvent.date}</h4>
@@ -196,7 +196,7 @@ const Events = () => {
                             <a
                                 href={selectedEvent.link}
                                 target="__blank"
-                                className="flex-1 py-3 text-center bg-[#BC9040] text-black font-bold rounded-lg hover:bg-[#D4A550] transition-colors"
+                                className="flex-1 py-3 text-center bg-[#f06f2b] text-black font-bold rounded-lg hover:bg-[#c98a69] transition-colors"
                             >
                                 Visit Website
                             </a>

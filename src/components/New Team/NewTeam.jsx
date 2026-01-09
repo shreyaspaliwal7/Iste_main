@@ -1,184 +1,209 @@
-import React, { useState } from 'react';
-import { Instagram, Facebook, Twitter, Linkedin, ChevronDown, Terminal, Cpu, Database, Scan } from 'lucide-react';
+import React from 'react';
+import { Instagram, Facebook, Twitter, Linkedin } from 'lucide-react';
 import { motion } from 'framer-motion';
+import teamData from '../../assets/TeamData2025';
 
-const placeholderImg = "/Images/DhananjayBorban.png";
+const TeamMemberCard = ({ member }) => {
+    // Convert Google Drive links to thumbnail links which are more reliable for embedding
+    let photoUrl = member.photo;
+    if (photoUrl && photoUrl.includes('drive.google.com')) {
+        const idMatch = photoUrl.match(/id=([a-zA-Z0-9_-]+)/);
+        if (idMatch) {
+            photoUrl = `https://drive.google.com/thumbnail?id=${idMatch[1]}&sz=w500`;
+        }
+    }
 
-const TeamCard = ({ member, borderColor, glowColor }) => {
+    // Helper to render social link
+    const renderSocial = (url, Icon, colorClass) => {
+        const hasLink = url && url.trim() !== "";
+
+        if (!hasLink) {
+            return (
+                <div className="text-gray-600 cursor-default">
+                    <Icon size={20} />
+                </div>
+            );
+        }
+
+        let href = url;
+        if (!href.startsWith('http')) href = `https://${href}`;
+        return (
+            <a
+                href={href}
+                className={`text-gray-400 hover:${colorClass} transition-colors`}
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                <Icon size={20} />
+            </a>
+        );
+    };
+
     return (
-        <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            whileHover={{ y: -5, scale: 1.02 }}
-            className={`relative group bg-[#0a0a0a] border border-${borderColor} hover:border-[#D0DA3B] rounded-xl overflow-hidden transition-all duration-300`}
-            style={{
-                boxShadow: `0 0 0 1px ${glowColor}20`,
-            }}
-        >
-
-            <div
-                className="absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity duration-300 pointer-events-none"
-                style={{ background: `linear-gradient(to bottom, ${glowColor}, transparent)` }}
-            />
-
-
-            <div className="absolute top-0 left-0 w-2 h-2 border-t border-l" style={{ borderColor: glowColor }}></div>
-            <div className="absolute top-0 right-0 w-2 h-2 border-t border-r" style={{ borderColor: glowColor }}></div>
-            <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l" style={{ borderColor: glowColor }}></div>
-            <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r" style={{ borderColor: glowColor }}></div>
-
-            <div className="p-4">
-
-                <div className="relative aspect-square mb-4 overflow-hidden rounded-lg border border-white/10 group-hover:border-white/30 transition-colors">
+        <div className="bg-[#151515] rounded-3xl p-6 flex flex-col items-center text-white shadow-[0_20px_40px_rgba(0,0,0,0.45)] border border-white/10 hover:border-[#F06F2B] transition-all duration-300 hover:shadow-[0_0_40px_rgba(240,111,43,0.9)] hover:-translate-y-1 hover:scale-[1.02] w-full max-w-sm">
+            <div className="flex flex-col items-center space-y-4 w-full">
+                <div className="w-48 h-48 rounded-full overflow-hidden border-[3px] border-[#d6c84a] shadow-[0_12px_24px_rgba(0,0,0,0.35)] flex-shrink-0">
                     <img
-                        src={member.image}
+                        src={photoUrl}
                         alt={member.name}
-                        className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500"
+                        className="w-full h-full object-cover"
+                        referrerPolicy="no-referrer"
                     />
-
-                    <div className="absolute inset-0 bg-[linear-gradient(transparent_50%,rgba(0,0,0,0.5)_50%)] bg-[length:4px_4px] pointer-events-none opacity-20"></div>
                 </div>
 
+                <h3
+                    className="text-lg text-center leading-tight truncate w-full px-2"
+                    style={{ fontFamily: "'Paytone One', sans-serif" }}
+                    title={member.name}
+                >
+                    {member.name}
+                </h3>
 
-                <div className="text-center space-y-2 relative z-10">
-                    <h3 className="text-white font-bold text-lg tracking-wider" style={{ fontFamily: 'monospace' }}>
-                        {member.name}
-                    </h3>
-                    <p className="text-xs uppercase tracking-[0.2em]" style={{ color: glowColor }}>
-                        {member.role}
-                    </p>
-                    <div className="h-[1px] w-1/2 mx-auto bg-gradient-to-r from-transparent via-white/20 to-transparent my-3"></div>
+                <p className="text-gray-200 text-xs text-center font-semibold leading-tight h-4">
+                    {member.vertical}
+                </p>
 
-
-                    <div className="flex justify-center gap-4">
-                        {[
-                            { Icon: Instagram, link: member.social.instagram },
-                            { Icon: Facebook, link: member.social.facebook },
-                            { Icon: Twitter, link: member.social.twitter },
-                            { Icon: Linkedin, link: member.social.linkedin }
-                        ].map(({ Icon, link }, index) => (
-                            <a
-                                key={index}
-                                href={link}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-gray-500 hover:text-white transition-colors transform hover:scale-110"
-                            >
-                                <Icon size={18} />
-                            </a>
-                        ))}
-                    </div>
+                <div className="flex gap-4 mt-1 text-white justify-center">
+                    {renderSocial(member.instagramProfile, Instagram, "text-pink-400")}
+                    {renderSocial(member.facebookProfile, Facebook, "text-blue-400")}
+                    {renderSocial(member.xProfile, Twitter, "text-sky-400")}
+                    {renderSocial(member.linkedinProfile, Linkedin, "text-blue-500")}
                 </div>
             </div>
-        </motion.div>
+        </div>
     );
 };
 
-const SectorHeader = ({ title, color }) => (
-    <div className="flex items-center justify-center gap-4 mb-12 mt-20">
-        <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent to-white/30"></div>
-        <div
-            className="px-6 py-2 border border-white/20 bg-[#050505] text-sm md:text-base font-mono uppercase tracking-widest relative"
-            style={{ color: color, boxShadow: `0 0 15px ${color}20` }}
-        >
-            <span className="mr-2 text-white/50">&gt;</span>
-            {title}
-
-            <div className="absolute -top-1 -left-1 w-2 h-2 border-t border-l border-white/40"></div>
-            <div className="absolute -bottom-1 -right-1 w-2 h-2 border-b border-r border-white/40"></div>
-        </div>
-        <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent to-white/30"></div>
-    </div>
-);
-
 const NewTeam = () => {
+    // Priority definition as requested
+    const priority = {
+        President: 50,
+        "Students' Chairperson": 49,
+        'Vice-Chairperson': 48,
+        Convener: 47,
+        'Co-convener': 46,
+        Treasurer: 45,
+        'Core Team Member': 43,
+        Secretary: 42,
+        Finance: 41,
+        'General Affairs': 40,
+        'Sponsorship and Marketing': 39,
+        Technical: 38,
+        'Web Operations': 37,
+        'Senior Web': 36,
+        'Public Relations': 35,
+        'Public Relation': 35,
+        Logistics: 34,
+        Media: 33,
+        Design: 31,
+        Creatives: 30,
+        Content: 29,
+        Quizzing: 28,
+        'Team Manager': 27,
+        'Team Management': 26,
+        Executive: 10,
+        'Executive and Content Writer': 10,
+        'Web Developer': 4,
+        'Web developer': 4,
+        'Graphic Designer': 8,
+        'Content Writer': 7,
+        'Content writer': 7,
+        'Video Editor': 6,
+        'Video editor': 6,
+        Photographer: 5,
+    };
 
-    const leadership = Array(3).fill({
-        name: "Dhananjay Borban",
-        role: "Chairperson",
-        image: placeholderImg,
-        social: { instagram: '#', facebook: '#', twitter: '#', linkedin: '#' }
+    // Process and sort data
+    const sortedData = [...teamData].map(entry => {
+        let entryPriority = -1;
+        for (const post in priority) {
+            if (entry.vertical && entry.vertical.indexOf(post) !== -1) {
+                entryPriority = priority[post];
+                break;
+            }
+        }
+        return { ...entry, priority: entryPriority }; // specific priority for this render
+    }).sort((a, b) => {
+        if (a.priority < b.priority) return 1;
+        else if (a.priority > b.priority) return -1;
+        else {
+            if (a.name > b.name) return 1;
+            return -1;
+        }
     });
 
-    const executives = Array(6).fill({
-        name: "Dhananjay Borban",
-        role: "Executive",
-        image: placeholderImg,
-        social: { instagram: '#', facebook: '#', twitter: '#', linkedin: '#' }
-    });
-
-    const associates = Array(6).fill({
-        name: "Dhananjay Borban",
-        role: "Associate",
-        image: placeholderImg,
-        social: { instagram: '#', facebook: '#', twitter: '#', linkedin: '#' }
-    });
+    // Filter data by year from the sorted list
+    const finalYear = sortedData.filter(member => member.year === "4th");
+    const thirdYear = sortedData.filter(member => member.year === "3rd");
+    const secondYear = sortedData.filter(member => member.year === "2nd");
 
     return (
-        <div className="min-h-screen bg-black text-white py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden font-mono">
-
-            <div className="absolute inset-0 pointer-events-none">
-                <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:50px_50px] [mask-image:radial-gradient(ellipse_at_center,black_70%,transparent_100%)]"></div>
+        <div className="min-h-screen relative overflow-hidden">
+            {/* Standard Background from Home.jsx */}
+            <div className="bg-[#141414] fixed inset-0 -z-20 pointer-events-none overflow-hidden">
+                <svg
+                    className="w-full h-full"
+                    viewBox="0 0 1000 1000"
+                    preserveAspectRatio="none"
+                >
+                    <g stroke="#f97316" strokeWidth="1" strokeOpacity="0.4">
+                        <line x1="250" y1="950" x2="-100" y2="0" />
+                        <line x1="250" y1="950" x2="-100" y2="400" />
+                        <line x1="250" y1="950" x2="-100" y2="700" />
+                        <line x1="250" y1="950" x2="1100" y2="1050" />
+                        <line x1="250" y1="950" x2="1100" y2="1200" />
+                    </g>
+                </svg>
             </div>
 
-            <div className="relative max-w-7xl mx-auto">
+            <div className="relative max-w-7xl mx-auto py-24 px-4 sm:px-6 lg:px-8 z-10">
+                <div className="text-center mb-16">
+                    <h1 className="text-4xl md:text-5xl font-paytone text-white uppercase tracking-wide">
+                        OUR TEAM
+                    </h1>
+                </div>
 
-                <div className="text-center mb-20 space-y-4">
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        className="inline-block"
-                    >
-                        <h1 className="text-5xl md:text-7xl font-bold tracking-tighter text-white drop-shadow-[0_0_10px_#00FFFF] mb-2">
-                            // TEAM_DATABASE
-                        </h1>
-                        <div className="flex items-center justify-center gap-2 text-[#00ff9d] text-sm tracking-widest animate-pulse">
-                            <Terminal size={14} />
-                            <span>LOADING PERSONNEL DATA... STATUS: ONLINE</span>
+                {/* Final Year Section */}
+                {finalYear.length > 0 && (
+                    <div className="mb-20">
+                        <h2 className="text-3xl font-paytone text-[#F06F2B] mb-10 text-center uppercase tracking-wider">
+                            Final Year
+                        </h2>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
+                            {finalYear.map((member, idx) => (
+                                <TeamMemberCard key={`final-${idx}`} member={member} />
+                            ))}
                         </div>
-                    </motion.div>
-                </div>
+                    </div>
+                )}
 
+                {/* Third Year Section */}
+                {thirdYear.length > 0 && (
+                    <div className="mb-20">
+                        <h2 className="text-3xl font-paytone text-[#F06F2B] mb-10 text-center uppercase tracking-wider">
+                            Third Year
+                        </h2>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
+                            {thirdYear.map((member, idx) => (
+                                <TeamMemberCard key={`third-${idx}`} member={member} />
+                            ))}
+                        </div>
+                    </div>
+                )}
 
-                <SectorHeader title="SECTOR_01 :: THE_LEADERSHIP [FINAL_YEAR]" color="#d946ef" />
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {leadership.map((member, idx) => (
-                        <TeamCard
-                            key={idx}
-                            member={member}
-                            borderColor="purple-500/30"
-                            glowColor="#d946ef"
-                        />
-                    ))}
-                </div>
-
-
-                <SectorHeader title="SECTOR_02 :: THE_EXECUTIVES [THIRD_YEAR]" color="#06b6d4" />
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {executives.map((member, idx) => (
-                        <TeamCard
-                            key={idx}
-                            member={member}
-                            borderColor="cyan-500/30"
-                            glowColor="#06b6d4"
-                        />
-                    ))}
-                </div>
-
-
-                <SectorHeader title="SECTOR_03 :: THE_ASSOCIATES [SECOND_YEAR]" color="#ef4444" />
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {associates.map((member, idx) => (
-                        <TeamCard
-                            key={idx}
-                            member={member}
-                            borderColor="red-500/30"
-                            glowColor="#ef4444"
-                        />
-                    ))}
-                </div>
-
+                {/* Second Year Section */}
+                {secondYear.length > 0 && (
+                    <div className="mb-20">
+                        <h2 className="text-3xl font-paytone text-[#F06F2B] mb-10 text-center uppercase tracking-wider">
+                            Second Year
+                        </h2>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
+                            {secondYear.map((member, idx) => (
+                                <TeamMemberCard key={`second-${idx}`} member={member} />
+                            ))}
+                        </div>
+                    </div>
+                )}
             </div>
         </div>
     );

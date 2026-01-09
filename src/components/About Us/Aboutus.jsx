@@ -3,24 +3,17 @@ import React from 'react';
 
 const AboutPage = () => {
     return (
-        <div className="min-h-screen bg-[#F8F9FA] flex items-center justify-center text-[#1A1A1A] font-sans pb-20 relative">
-            <div className="absolute inset-0 z-0">
-                <img
-                    src="\Images\Screenshot 2026-01-03 111819.png"
-                    alt="Office Background"
-                    className="w-full h-full object-cover"
-                />
-            </div>
+        <div className="min-h-screen  flex items-center justify-center text-[#1A1A1A] font-sans pb-20 relative" id='about'>
 
-            <h2 className='absolute text-4xl font-paytone top-10 right-[45%] text-white z-50 '>ABOUT US</h2>
+            <h2 className='absolute text-4xl font-paytone top-20 right-[45%] text-white z-10 '>ABOUT US</h2>
 
             <main className=" max-w-6xl mx-auto mt-16 px-6 space-y-24">
 
-                {/* --- First Section --- */}
+
                 <div className="bg-black/70 top-16 p-10 rounded-[2.5rem] shadow-xl relative">
                     <section className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start flex items-center justify-center">
                         <div className="space-y-4">
-                            {/* Dark Image Container */}
+
 
                             <div className="bg-white rounded-xl overflow-hidden border-[6px] border-[#2A2A2A]">
                                 <img
@@ -28,7 +21,7 @@ const AboutPage = () => {
                                     alt="Laptop Workspace"
                                     className="w-full h-auto block"
                                 />
-                               
+
                             </div>
 
                         </div>

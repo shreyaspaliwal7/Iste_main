@@ -10,7 +10,7 @@ const Footer = () => {
 
             <Reveal>
                 <div className="text-center mb-8">
-                    <h2 className="text-4xl tracking-wide uppercase">Contact Us</h2>
+                    <h2 className="text-4xl tracking-wide uppercase text-[#f06f2b]">Contact Us</h2>
                 </div>
             </Reveal>
 

@@ -10,10 +10,10 @@ const Sponsors = () => {
 
     return (
         <section className=" w-full py-16" id='sponsors'>
-            <div className="container mx-auto px-8 md:px-12">
+            <div className="container mx-auto px-8 md:px-12 max-w-5xl">
 
                 <div className="text-center mb-12">
-                    <h2 className="text-white font-paytone text-4xl tracking-wide uppercase">
+                    <h2 className="text-[#f06f2b] font-paytone text-4xl tracking-wide uppercase">
                         OUR SPONSORS
                     </h2>
                 </div>

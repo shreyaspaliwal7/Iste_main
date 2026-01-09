@@ -6,6 +6,12 @@ import teamData from '../../assets/TeamData2025';
 const TeamMemberCard = ({ member }) => {
     // Convert Google Drive links to thumbnail links which are more reliable for embedding
     let photoUrl = member.photo;
+
+    // Fix empty string warning
+    if (photoUrl === "") {
+        photoUrl = null;
+    }
+
     if (photoUrl && photoUrl.includes('drive.google.com')) {
         const idMatch = photoUrl.match(/id=([a-zA-Z0-9_-]+)/);
         if (idMatch) {

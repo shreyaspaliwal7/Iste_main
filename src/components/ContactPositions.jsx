@@ -1,99 +1,134 @@
-import { Github, Instagram, Linkedin, Twitter, Mail, Phone } from 'lucide-react';
+import { Facebook, Instagram, Linkedin, Twitter } from 'lucide-react';
 import Navbar from "./Navbar";
+import { technicalHeads, creativeHeads, managementHeads } from '../assets/VerticalHeads';
 
-const ProfileCard = ({ role, name, email, phone, image }) => (
-    <div className="relative p-6 border border-gray-800 bg-black/50 rounded-lg w-full max-w-xl mx-auto group hover:border-[#D0DA3B] transition-colors duration-300 overflow-hidden">
+const ProfileCard = ({ vertical, name, emailAddress, linkedinProfile, instagramProfile, facebookProfile, xProfile, photo }) => {
+    // Image handling validation
+    let imageSrc = photo;
+    if (!imageSrc || imageSrc.trim() === "") {
+        imageSrc = null;
+    } else if (imageSrc.includes('drive.google.com')) {
+        const idMatch = imageSrc.match(/id=([a-zA-Z0-9_-]+)/);
+        if (idMatch) {
+            imageSrc = `https://drive.google.com/thumbnail?id=${idMatch[1]}&sz=w500`;
+        }
+    }
 
-        <div className="absolute top-0 left-0 h-full w-1.5 bg-[#00F3FF] shadow-[0_0_8px_#00F3FF]"></div>
+    // Helper for social links
+    const SocialLink = ({ url, Icon, colorClass }) => {
+        const hasLink = url && url.trim() !== "";
 
-        <div className="flex flex-col md:flex-row items-center gap-6 pl-4">
+        if (!hasLink) {
+            return (
+                <div className="text-gray-600 cursor-default">
+                    <Icon size={24} />
+                </div>
+            );
+        }
 
-            <div className="relative">
-                <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-gray-700 group-hover:border-[#D0DA3B] transition-colors">
-                    <img src={image || "https://api.dicebear.com/7.x/avataaars/svg?seed=Felix"} alt={name} className="w-full h-full object-cover" />
+        let href = url;
+        if (!href.startsWith('http')) href = `https://${href}`;
+        return (
+            <a href={href} target="_blank" rel="noopener noreferrer" className={`text-gray-400 hover:${colorClass} transition-colors`}>
+                <Icon size={24} />
+            </a>
+        );
+    };
+
+    return (
+        <div className="relative p-6 border border-gray-800 bg-[#151515] rounded-3xl w-full max-w-xl mx-auto group hover:border-[#F06F2B] transition-colors duration-300 overflow-hidden shadow-lg">
+
+            <div className="flex flex-col md:flex-row items-center gap-6 pl-4">
+
+                <div className="relative">
+                    <div className="w-40 h-40 rounded-full overflow-hidden border-[3px] border-[#d6c84a] group-hover:border-[#D0DA3B] transition-colors shadow-lg flex-shrink-0">
+                        <img src={imageSrc} alt={name} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                    </div>
                 </div>
 
-                <div className="absolute bottom-1 right-1 w-4 h-4 bg-[#00ff9d] rounded-full border-2 border-black animate-pulse"></div>
-            </div>
 
-
-            <div className="flex-1 space-y-2 text-left">
-                <div className="flex items-center gap-2 mb-2">
-                    <span className="text-[#00ff9d] text-sm font-mono">{">"}</span>
-                    <h3 className="text-white font-mono font-bold uppercase tracking-wider">{role}</h3>
-                </div>
-
-                <div className="space-y-1 text-sm font-mono text-gray-400">
-                    <div className="flex items-center gap-2">
-                        <span className="text-[#00ff9d]">{">"}</span>
-                        <span>NAME : {name}</span>
+                <div className="flex-1 space-y-4 text-left w-full overflow-hidden">
+                    <div className="flex items-center gap-2 mb-3">
+                        <h3 className="text-white font-paytone text-lg uppercase tracking-wider">{vertical?.replace('Heads', 'Head')}</h3>
                     </div>
-                    <div className="flex items-center gap-2">
-                        <span className="text-[#00ff9d]">{">"}</span>
-                        <span>EMAIL : {email}</span>
+
+                    <div className="space-y-3 text-base font-sans text-gray-300">
+                        <div className="flex items-center gap-2">
+                            <span className="font-bold text-[#F06F2B] flex-shrink-0">Name:</span>
+                            <span className="truncate">{name}</span>
+                        </div>
+                        {emailAddress && (
+                            <div className="flex items-center gap-2 min-w-0">
+                                <span className="font-bold text-[#F06F2B] flex-shrink-0">Email:</span>
+                                <span className="truncate block">{emailAddress}</span>
+                            </div>
+                        )}
+                        {/* Removed Phone as not in data */}
                     </div>
-                    <div className="flex items-center gap-2">
-                        <span className="text-[#00ff9d]">{">"}</span>
-                        <span>CONTACT_NUMBER : {phone}</span>
-                    </div>
-                </div>
 
 
-                <div className="flex gap-4 mt-4 pt-2">
-                    <a href="#" className="text-gray-400 hover:text-[#D0DA3B] transition-colors"><Instagram size={20} /></a>
-                    <a href="#" className="text-gray-400 hover:text-[#D0DA3B] transition-colors"><Twitter size={20} /></a>
-                    <a href="#" className="text-gray-400 hover:text-[#D0DA3B] transition-colors"><Linkedin size={20} /></a>
+                    <div className="flex gap-4 mt-5 pt-2">
+                        <SocialLink url={instagramProfile} Icon={Instagram} colorClass="text-pink-400" />
+                        <SocialLink url={facebookProfile} Icon={Facebook} colorClass="text-blue-400" />
+                        <SocialLink url={xProfile} Icon={Twitter} colorClass="text-sky-400" />
+                        <SocialLink url={linkedinProfile} Icon={Linkedin} colorClass="text-blue-500" />
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-);
+    );
+};
 
-const DepartmentSection = ({ title, members }) => (
-    <div className="mb-16">
-        <div className="flex items-center justify-center mb-8">
-            <div className="border border-red-900 bg-red-950/30 px-8 py-2 relative">
-                <h2 className="text-red-500 font-mono font-bold tracking-widest uppercase">
-                    {">"} {title}
-                </h2>
+const DepartmentSection = ({ title, members }) => {
+    if (!members || members.length === 0) return null;
+    return (
+        <div className="mb-16">
+            <h2 className="text-3xl font-paytone text-[#F06F2B] mb-10 text-center uppercase tracking-wider">
+                {title}
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto px-4">
+                {members.map((member, index) => (
+                    <ProfileCard key={index} {...member} />
+                ))}
             </div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto px-4">
-            {members.map((member, index) => (
-                <ProfileCard key={index} {...member} />
-            ))}
-        </div>
-    </div>
-);
+    );
+};
 
 export default function ContactPositions() {
 
-    const technicalDept = [
-        { role: "HEAD_TECHNICAL", name: "PRAKHAR_MISHRA", email: "xyz@gmail.com", phone: "99XXXXXXXX", image: "./public/Images/PrakharMishra.jpg" },
-        { role: "HEAD_WEB_OPERATIONS", name: "MOHIT_SINGH", email: "abc@gmail.com", phone: "98XXXXXXXX", image: "./public/Images/MohitSingh.jpg" }
-    ];
-
     return (
-        <div className="min-h-screen bg-black text-white pt-24 pb-12">
+        <div className="min-h-screen relative overflow-hidden pt-24 pb-12">
             <Navbar />
 
-
-            <div className="text-center mb-16 space-y-2">
-                <div className="flex items-center justify-center gap-2 mb-4">
-                    <span className="text-[#00ff9d] text-4xl font-bold font-mono">{"//"}</span>
-                    <h1 className="text-4xl md:text-5xl font-bold font-mono tracking-wider text-white drop-shadow-[0_0_10px_#00ffff]">
-                        VERTICAL_HEADS_DIRECTORY
-                    </h1>
-                </div>
-                <p className="text-red-500 font-mono text-sm tracking-widest animate-pulse">
-                    {"< ESTABLISHING_SECURE_CONNECTION... >"}
-                </p>
+            {/* Standard Background */}
+            <div className="bg-[#141414] fixed inset-0 -z-20 pointer-events-none overflow-hidden">
+                <svg
+                    className="w-full h-full"
+                    viewBox="0 0 1000 1000"
+                    preserveAspectRatio="none"
+                >
+                    <g stroke="#f97316" strokeWidth="1" strokeOpacity="0.4">
+                        <line x1="250" y1="950" x2="-100" y2="0" />
+                        <line x1="250" y1="950" x2="-100" y2="400" />
+                        <line x1="250" y1="950" x2="-100" y2="700" />
+                        <line x1="250" y1="950" x2="1100" y2="1050" />
+                        <line x1="250" y1="950" x2="1100" y2="1200" />
+                    </g>
+                </svg>
             </div>
 
 
-            <DepartmentSection title="TECHNICAL_DEPARTMENT" members={technicalDept} />
-            <DepartmentSection title="MANAGEMENT_DEPARTMENT" members={technicalDept} />
-            <DepartmentSection title="CREATIVE_DEPARTMENT" members={technicalDept} />
+            <div className="text-center mb-16 space-y-2">
+                <h1 className="text-4xl md:text-5xl font-paytone text-white uppercase tracking-wide">
+                    CONTACTS OF VERTICAL HEAD
+                </h1>
+            </div>
+
+
+            <DepartmentSection title="TECHNICAL DEPARTMENT" members={technicalHeads} />
+            <DepartmentSection title="MANAGEMENT DEPARTMENT" members={managementHeads} />
+            <DepartmentSection title="CREATIVE DEPARTMENT" members={creativeHeads} />
         </div>
     );
 }

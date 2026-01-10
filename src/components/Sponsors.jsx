@@ -23,7 +23,7 @@ const Sponsors = () => {
                     {sponsorList.map((src, index) => (
                         <Reveal key={index} delay={index * 20} className="h-full">
                             <div
-                                className="bg-white/5 border border-white/10 rounded-2xl h-36 flex items-center justify-center p-6 hover:scale-105 hover:border-[#f06f2b] hover:shadow-[0_0_15px_rgba(188,144,64,0.3)] transition-all duration-300"
+                                className="bg-[#474747] border border-white/10 rounded-2xl h-36 flex items-center justify-center p-6 hover:scale-105 hover:border-[#f06f2b] hover:shadow-[0_0_15px_rgba(188,144,64,0.3)] transition-all duration-300"
                             >
                                 <img
                                     src={src}

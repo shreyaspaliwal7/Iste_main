@@ -2032,7 +2032,7 @@ const data = [
    //  "year": "4th",
    //  "vertical": "Core Team Member",
    //  "linkedinProfile": "https://www.linkedin.com/in/anjaneya-dwivedi-0b755a201",
-   //  "photo": require("../assets/team_img/Team__Download/anjaney.jpeg")
+   //  "photo": ""
    // },
    // {
    //  "timestamp": "2022-11-13T15:45:53.727Z",
@@ -2060,7 +2060,7 @@ const data = [
    //  "vertical": "Core Team Member",
    //  "linkedinProfile": "Anurag Soni",
    //  "instagramProfile": "anuragsoni.as",
-   //  "photo": require("../assets/team_img/Team__Download/anurag.jpeg")
+   //  "photo": ""
    // },
    // {
    //  "name": "Gautam Pratap",
@@ -2068,7 +2068,7 @@ const data = [
    //  "vertical": "Core Team Member",
    //  "linkedinProfile": "https://www.linkedin.com/in/gautampratap",
    //  "instagramProfile": "https://www.instagram.com/yoursgautampratap/",
-   //  "photo": require("../assets/team_img/Team__Download/gautum.jpg")
+   //  "photo": ""
    // },
    // {
    //  "timestamp": "2022-11-13T18:19:21.830Z",
@@ -2105,7 +2105,7 @@ const data = [
    //  "vertical": "Core Team Member ",
    //  "linkedinProfile": "https://www.linkedin.com/in/ashay-jain-485a43244",
    //  "instagramProfile": "easyyy_10",
-   //  "photo": require("../assets/team_img/ashay.jpg")
+   //  "photo": ""
    // },
    // {
    //  "timestamp": "2022-11-13T14:24:02.901Z",
@@ -2181,7 +2181,7 @@ const data = [
    //  "instagramProfile": "https://instagram.com/kartikeyamande19?igshid=YmMyMTA2M2Y=",
    //  "facebookProfile": "https://www.facebook.com/kartikeya.mande",
    //  "githubProfile": "https://github.com/Kartikeya192002",
-   //  "photo": require("../assets/team_img/Team__Download/mande.jpg")
+   //  "photo": ""
    // },
    // {
    //  "timestamp": "2022-11-13T18:05:24.580Z",
@@ -2280,7 +2280,7 @@ const data = [
    //  "facebookProfile": "-",
    //  "twitterProfile": "-",
    //  "githubProfile": "-",
-   //  "photo": require("../assets/team_img/Team__Download/samyukta.jpeg")
+   //  "photo": ""
    // },
    // {
    //  "timestamp": "2022-11-13T11:00:57.770Z",
@@ -2369,7 +2369,7 @@ const data = [
    //  "vertical": "Core Team Member",
    //  "linkedinProfile": "https://www.linkedin.com/in/vidit-purohit-36b538231",
    //  "instagramProfile": "https://instagram.com/vidit01purohit?igshid=YmMyMTA2M2Y=",
-   //  "photo": require("../assets/team_img/Team__Download/vidit.jpeg")
+   //  "photo": ""
    // },
    // {
    //  "timestamp": "2022-11-13T10:17:01.027Z",

@@ -2,7 +2,7 @@ import { Facebook, Instagram, Linkedin, Twitter } from 'lucide-react';
 import Navbar from "./Navbar";
 import { technicalHeads, creativeHeads, managementHeads } from '../assets/VerticalHeads';
 
-const ProfileCard = ({ vertical, name, emailAddress, linkedinProfile, instagramProfile, facebookProfile, xProfile, photo }) => {
+const ProfileCard = ({ vertical, name, emailAddress, phoneNumber, linkedinProfile, instagramProfile, facebookProfile, xProfile, photo }) => {
     // Image handling validation
     let imageSrc = photo;
     if (!imageSrc || imageSrc.trim() === "") {
@@ -63,7 +63,12 @@ const ProfileCard = ({ vertical, name, emailAddress, linkedinProfile, instagramP
                                 <span className="truncate block">{emailAddress}</span>
                             </div>
                         )}
-                        {/* Removed Phone as not in data */}
+                        {phoneNumber && (
+                            <div className="flex items-center gap-2 min-w-0">
+                                <span className="font-bold text-[#F06F2B] flex-shrink-0">Phone:</span>
+                                <span className="truncate block">{phoneNumber}</span>
+                            </div>
+                        )}
                     </div>
 
 

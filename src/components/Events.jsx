@@ -122,7 +122,7 @@ const Events = () => {
                         <Reveal key={event.id} delay={index * 50} className="w-full h-full">
                             <div
 
-                                className="bg-[#474747] rounded-2xl flex flex-col items-center justify-between p-6 md:p-8 min-h-[240px] md:min-h-[280px] h-full transition-all duration-300 hover:scale-105 border border-[#f06f2b]/30 w-full hover:border-[#f06f2b] hover:shadow-[0_0_25px_rgba(188,144,64,0.4),0_20px_30px_rgba(0,0,0,0.5)] group"
+                                className="bg-white/5 rounded-2xl flex flex-col items-center justify-between p-6 md:p-8 min-h-[240px] md:min-h-[280px] h-full transition-all duration-300 hover:scale-105 border border-[#f06f2b]/30 w-full hover:border-[#f06f2b] hover:shadow-[0_0_25px_rgba(188,144,64,0.4),0_20px_30px_rgba(0,0,0,0.5)] group"
                                 style={{
                                     boxShadow: 'rgba(0, 0, 0, 0.4) 0px 10px 20px'
                                 }}

@@ -2,22 +2,47 @@ import React from 'react';
 import { Instagram, Facebook, Twitter, Linkedin } from 'lucide-react';
 import { motion } from 'framer-motion';
 import teamData from '../../assets/TeamData2025';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useRef, useState, useEffect } from 'react';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const TeamMemberCard = ({ member }) => {
-    // Convert Google Drive links to thumbnail links which are more reliable for embedding
-    let photoUrl = member.photo;
+    const [imgSrc, setImgSrc] = useState(null);
+    const [retryCount, setRetryCount] = useState(0);
 
-    // Fix empty string warning
-    if (photoUrl === "") {
-        photoUrl = null;
-    }
+    useEffect(() => {
+        // Convert Google Drive links to thumbnail links
+        let photoUrl = member.photo;
 
-    if (photoUrl && photoUrl.includes('drive.google.com')) {
-        const idMatch = photoUrl.match(/id=([a-zA-Z0-9_-]+)/);
-        if (idMatch) {
-            photoUrl = `https://drive.google.com/thumbnail?id=${idMatch[1]}&sz=w500`;
+        if (photoUrl === "") {
+            photoUrl = null;
+        } else if (photoUrl && photoUrl.includes('drive.google.com')) {
+            const idMatch = photoUrl.match(/id=([a-zA-Z0-9_-]+)/);
+            if (idMatch) {
+                photoUrl = `https://drive.google.com/thumbnail?id=${idMatch[1]}&sz=w500`;
+            }
         }
-    }
+
+        setImgSrc(photoUrl);
+        setRetryCount(0);
+    }, [member.photo]);
+
+    const handleImageError = () => {
+        if (retryCount < 3 && imgSrc) {
+            // Add a small delay before retrying
+            setTimeout(() => {
+                setRetryCount(prev => prev + 1);
+                // Append retry param to bypass simple cache issues or just trigger reload
+                const separator = imgSrc.includes('?') ? '&' : '?';
+                // Remove previous retry param if exists to avoid infinite appending
+                const cleanSrc = imgSrc.replace(/[?&]retry=\d+/, '');
+                setImgSrc(`${cleanSrc}${separator}retry=${retryCount + 1}`);
+            }, 1000);
+        }
+    };
 
     // Helper to render social link
     const renderSocial = (url, Icon, colorClass) => {
@@ -46,12 +71,13 @@ const TeamMemberCard = ({ member }) => {
     };
 
     return (
-        <div className="bg-[#151515] rounded-3xl p-6 flex flex-col items-center text-white shadow-[0_20px_40px_rgba(0,0,0,0.45)] border border-white/10 hover:border-[#F06F2B] transition-all duration-300 hover:shadow-[0_0_40px_rgba(240,111,43,0.9)] hover:-translate-y-1 hover:scale-[1.02] w-full max-w-sm">
+        <div className="team-card bg-white/5 rounded-3xl p-6 flex flex-col items-center text-white shadow-[0_20px_40px_rgba(0,0,0,0.45)] border border-white/10 hover:border-[#F06F2B] transition-all duration-300 hover:shadow-[0_0_25px_rgba(240,111,43,0.5)] hover:-translate-y-1 hover:scale-[1.02] w-full max-w-xs">
             <div className="flex flex-col items-center space-y-4 w-full">
-                <div className="w-48 h-48 rounded-full overflow-hidden border-[3px] border-[#d6c84a] shadow-[0_12px_24px_rgba(0,0,0,0.35)] flex-shrink-0">
+                <div className="w-48 h-48 rounded-full overflow-hidden border-[3px] border-[#F06F2B] shadow-[0_12px_24px_rgba(0,0,0,0.35)] flex-shrink-0">
                     <img
-                        src={photoUrl}
+                        src={imgSrc}
                         alt={member.name}
+                        onError={handleImageError}
                         className="w-full h-full object-cover"
                         referrerPolicy="no-referrer"
                     />
@@ -81,13 +107,66 @@ const TeamMemberCard = ({ member }) => {
 };
 
 const NewTeam = () => {
+    const containerRef = useRef();
+
+    useGSAP(() => {
+        const headings = gsap.utils.toArray('.year-heading');
+        headings.forEach(heading => {
+            gsap.fromTo(heading,
+                {
+                    y: 30,
+                    opacity: 0,
+                    scale: 0.9
+                },
+                {
+                    y: 0,
+                    opacity: 1,
+                    scale: 1,
+                    duration: 1.2,
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: heading,
+                        start: "top 85%",
+                        toggleActions: "play none none reverse"
+                    }
+                }
+            );
+        });
+
+        // Initial state for cards
+        gsap.set(".team-card", {
+            opacity: 0,
+            scale: 0.9,
+            y: 30
+        });
+
+        // Animate entire grid when it comes into view
+        const grids = gsap.utils.toArray('.team-grid');
+        grids.forEach(grid => {
+            gsap.to(grid.querySelectorAll('.team-card'), {
+                scrollTrigger: {
+                    trigger: grid,
+                    start: "top 80%",
+                    toggleActions: "play none none reverse"
+                },
+                opacity: 1,
+                scale: 1,
+                y: 0,
+                duration: 0.8,
+                stagger: 0.1, // Auto-play the cascade
+                ease: "power3.out",
+                overwrite: true,
+                clearProps: "all" // Remove inline styles after animation so CSS hover works
+            });
+        });
+    }, { scope: containerRef });
     // Priority definition as requested
     const priority = {
         President: 50,
         "Students' Chairperson": 49,
         'Vice-Chairperson': 48,
-        Convener: 47,
-        'Co-convener': 46,
+        "Students' Convenor": 47,
+        "Students' Co-Convenor": 46,
         Treasurer: 45,
         'Core Team Member': 43,
         Secretary: 42,
@@ -144,7 +223,7 @@ const NewTeam = () => {
     const secondYear = sortedData.filter(member => member.year === "2nd");
 
     return (
-        <div className="min-h-screen relative overflow-hidden">
+        <div ref={containerRef} className="min-h-screen relative overflow-hidden">
             {/* Standard Background from Home.jsx */}
             <div className="bg-[#141414] fixed inset-0 -z-20 pointer-events-none overflow-hidden">
                 <svg
@@ -163,19 +242,15 @@ const NewTeam = () => {
             </div>
 
             <div className="relative max-w-7xl mx-auto py-24 px-4 sm:px-6 lg:px-8 z-10">
-                <div className="text-center mb-16">
-                    <h1 className="text-4xl md:text-5xl font-paytone text-white uppercase tracking-wide">
-                        OUR TEAM
-                    </h1>
-                </div>
+
 
                 {/* Final Year Section */}
                 {finalYear.length > 0 && (
                     <div className="mb-20">
-                        <h2 className="text-3xl font-paytone text-[#F06F2B] mb-10 text-center uppercase tracking-wider">
+                        <h2 className="year-heading text-4xl font-paytone text-[#F06F2B] mb-16 text-center uppercase tracking-wider">
                             Final Year
                         </h2>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
+                        <div className="team-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
                             {finalYear.map((member, idx) => (
                                 <TeamMemberCard key={`final-${idx}`} member={member} />
                             ))}
@@ -186,10 +261,10 @@ const NewTeam = () => {
                 {/* Third Year Section */}
                 {thirdYear.length > 0 && (
                     <div className="mb-20">
-                        <h2 className="text-3xl font-paytone text-[#F06F2B] mb-10 text-center uppercase tracking-wider">
+                        <h2 className="year-heading text-4xl font-paytone text-[#F06F2B] mb-16 text-center uppercase tracking-wider">
                             Third Year
                         </h2>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
+                        <div className="team-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
                             {thirdYear.map((member, idx) => (
                                 <TeamMemberCard key={`third-${idx}`} member={member} />
                             ))}
@@ -200,10 +275,10 @@ const NewTeam = () => {
                 {/* Second Year Section */}
                 {secondYear.length > 0 && (
                     <div className="mb-20">
-                        <h2 className="text-3xl font-paytone text-[#F06F2B] mb-10 text-center uppercase tracking-wider">
+                        <h2 className="year-heading text-4xl font-paytone text-[#F06F2B] mb-16 text-center uppercase tracking-wider">
                             Second Year
                         </h2>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
+                        <div className="team-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
                             {secondYear.map((member, idx) => (
                                 <TeamMemberCard key={`second-${idx}`} member={member} />
                             ))}

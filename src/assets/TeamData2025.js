@@ -21,7 +21,7 @@ const data = [
     "facebookProfile": "",
     "xProfile": "",
     "githubProfile": "https://github.com/shreyaspaliwal7/",
-    "photo": "https://drive.google.com/open?id=1UH5VKcUcVZq-L5HaKgnabn6-O-qyXQou"
+    "photo": "https://drive.google.com/uc?export=view&id=17mtxEFcKh8fJ0mu-4XiiKlYPfLQpDsRn"
   },
   {
     "Timestamp": "18/06/2025 23:36:08",

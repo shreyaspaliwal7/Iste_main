@@ -36,12 +36,12 @@ const ProfileCard = ({ vertical, name, emailAddress, linkedinProfile, instagramP
     };
 
     return (
-        <div className="relative p-6 border border-gray-800 bg-[#151515] rounded-3xl w-full max-w-xl mx-auto group hover:border-[#F06F2B] transition-colors duration-300 overflow-hidden shadow-lg">
+        <div className="relative p-6 border border-gray-800 bg-white/5 rounded-3xl w-full max-w-xl mx-auto group hover:border-[#F06F2B] transition-all duration-300 overflow-hidden shadow-lg hover:-translate-y-1 hover:scale-[1.01] hover:shadow-[0_0_25px_rgba(240,111,43,0.3)]">
 
             <div className="flex flex-col md:flex-row items-center gap-6 pl-4">
 
                 <div className="relative">
-                    <div className="w-40 h-40 rounded-full overflow-hidden border-[3px] border-[#d6c84a] group-hover:border-[#D0DA3B] transition-colors shadow-lg flex-shrink-0">
+                    <div className="w-40 h-40 rounded-full overflow-hidden border-[3px] border-[#F06F2B] group-hover:border-[#F06F2B] transition-colors shadow-lg flex-shrink-0">
                         <img src={imageSrc} alt={name} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
                     </div>
                 </div>
@@ -96,18 +96,52 @@ const DepartmentSection = ({ title, members }) => {
 };
 
 export default function ContactPositions() {
+    // Priority definition (consistent with NewTeam.jsx)
+    // Priority definition (matches screenshot hierarchy)
+    const priority = {
+        "Student's Jt.General Secretary": 100,
+        "General Secretary": 100,
+        "General Affairs": 90,
+        "Finance": 89,
+        "Public Relations": 88,
+        "Sponsorship and Marketing": 87,
+        "Media": 86,
+        "Logistics": 85,
+        "Team Management": 84,
+        "Technical": 83,
+        "Web Operations": 82,
+        "Multimedia": 81,
+        "Creative": 80,
+        "Content": 79,
+        "Quizzing": 78,
+        "Design": 77
+    };
+
+    const sortMembers = (members) => {
+        return [...members].map(entry => {
+            let entryPriority = -1;
+            for (const post in priority) {
+                if (entry.vertical && entry.vertical.indexOf(post) !== -1) {
+                    entryPriority = priority[post];
+                    break;
+                }
+            }
+            return { ...entry, priority: entryPriority };
+        }).sort((a, b) => {
+            if (a.priority < b.priority) return 1;
+            else if (a.priority > b.priority) return -1;
+            else {
+                if (a.name > b.name) return 1;
+                return -1;
+            }
+        });
+    };
 
     return (
-        <div className="min-h-screen relative overflow-hidden pt-24 pb-12">
-            <Navbar />
-
-            {/* Standard Background */}
-            <div className="bg-[#141414] fixed inset-0 -z-20 pointer-events-none overflow-hidden">
-                <svg
-                    className="w-full h-full"
-                    viewBox="0 0 1000 1000"
-                    preserveAspectRatio="none"
-                >
+        <div className="min-h-screen relative overflow-hidden">
+            {/* Background */}
+            <div className="fixed inset-0 -z-20 pointer-events-none bg-[#141414]">
+                <svg className="w-full h-full" viewBox="0 0 1000 1000" preserveAspectRatio="none">
                     <g stroke="#f97316" strokeWidth="1" strokeOpacity="0.4">
                         <line x1="250" y1="950" x2="-100" y2="0" />
                         <line x1="250" y1="950" x2="-100" y2="400" />
@@ -118,17 +152,13 @@ export default function ContactPositions() {
                 </svg>
             </div>
 
+            <Navbar />
 
-            <div className="text-center mb-16 space-y-2">
-                <h1 className="text-4xl md:text-5xl font-paytone text-white uppercase tracking-wide">
-                    CONTACTS OF VERTICAL HEAD
-                </h1>
+            <div className="relative max-w-7xl mx-auto py-24 px-4 sm:px-6 lg:px-8 z-10">
+                <DepartmentSection title="TECHNICAL DEPARTMENT" members={sortMembers(technicalHeads)} />
+                <DepartmentSection title="CREATIVE DEPARTMENT" members={sortMembers(creativeHeads)} />
+                <DepartmentSection title="MANAGEMENT DEPARTMENT" members={sortMembers(managementHeads)} />
             </div>
-
-
-            <DepartmentSection title="TECHNICAL DEPARTMENT" members={technicalHeads} />
-            <DepartmentSection title="MANAGEMENT DEPARTMENT" members={managementHeads} />
-            <DepartmentSection title="CREATIVE DEPARTMENT" members={creativeHeads} />
         </div>
     );
 }

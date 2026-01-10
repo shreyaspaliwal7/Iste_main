@@ -1,5 +1,6 @@
 
 import React from 'react';
+import "./Aboutus.css"
 
 const AboutPage = () => {
     return (
@@ -27,7 +28,7 @@ const AboutPage = () => {
                         </div>
 
                         <div className="pt-8">
-                            <p className="text-white text-base leading-relaxed">
+                            <p className="text-white text-base leading-relaxed fontdesc">
                                 Indian Society for Technical Education (ISTE) is a National level non-profit Society for the Technical Education System in our country. ISTE assists and contributes to the production and development of top quality professional technocrats. It has over 1505 Student Chapters at the institutional level, one such chapter is ISTE SC MANIT. ISTE SC MANIT is one of the oldest student organizations in MANIT. Started in 2003, it has been actively contributing towards the professional and technical education of the students at MANIT and beyond. It has been conducting national level events like ChimeraX - The Multi-city Quizzing Competition, CODATHON - The Inter NIT Coding Contest, Anubhuti - The Talkshow, Megatreopuz - The Online Cryptic Hunt, Version β - The National level Hackathon. Events like these have gifted ISTE SC MANIT the Best Students' Chapter Award in the MP & Chhattisgarh region, not once but thrice.
                             </p>
                         </div>

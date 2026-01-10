@@ -20,7 +20,7 @@ const data = [
     "instagramProfile": "https://www.instagram.com/paliwal_shreyas?igsh=Mzkxd2dmNGxpYWk0",
     "facebookProfile": "",
     "xProfile": "",
-    "githubProfile": "https://github.com/shreyaspaliwal7/iste-task-A",
+    "githubProfile": "https://github.com/shreyaspaliwal7/",
     "photo": "https://drive.google.com/open?id=1UH5VKcUcVZq-L5HaKgnabn6-O-qyXQou"
   },
   {

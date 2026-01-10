@@ -23,9 +23,9 @@ const Hero = () => {
                 className='absolute inset-0 w-full h-full bg-cover bg-center bg-fixed -z-10 block sm:hidden'
                 style={{ backgroundImage: `url('/Images/914 (2).jpg')` }}
             />
-            <div className="mt-10 flex flex-col items-center justify-center min-h-[94vh] gap-10 px-4 text-center">
+            <div className="mt-28 flex flex-col items-center justify-center min-h-[94vh] gap-10 px-4 text-center">
 
-                <h1 className="text-5xl md:text-7xl font-bold tracking-tighter mb-6">
+                <h1 className="text-6xl md:text-7xl font-bold tracking-tighter mb-6">
                     <span className=" fonthead text-transparent bg-clip-text bg-gradient-to-b from-orange-400 to-orange-600 drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]"
                         style={{ WebkitTextStroke: '1px #ea580c' }}>
                         ISTE   SC MANIT
@@ -33,7 +33,7 @@ const Hero = () => {
                 </h1>
 
 
-                <p className="fonthead max-w-2xl font-m text-white font-black uppercase text-lg md:text-xl tracking-wider mt-8 mb-12">
+                <p className="fonthead max-w-2xl font-m text-white font-black uppercase text-2xl md:text-xl tracking-wider mt-8 mb-12">
                     Best Students' Chapter in Madhya Pradesh - <br className="hidden md:block" />
                     Chhattisgarh Region from 3 consecutive years.
                 </p>

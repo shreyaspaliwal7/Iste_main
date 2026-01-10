@@ -41,7 +41,7 @@ const ProfileCard = ({ vertical, name, emailAddress, linkedinProfile, instagramP
             <div className="flex flex-col md:flex-row items-center gap-6 pl-4">
 
                 <div className="relative">
-                    <div className="w-40 h-40 rounded-full overflow-hidden border-[3px] border-[#F06F2B] group-hover:border-[#D0DA3B] transition-colors shadow-lg flex-shrink-0">
+                    <div className="w-40 h-40 rounded-full overflow-hidden border-[3px] border-[#F06F2B] group-hover:border-[#F06F2B] transition-colors shadow-lg flex-shrink-0">
                         <img src={imageSrc} alt={name} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
                     </div>
                 </div>

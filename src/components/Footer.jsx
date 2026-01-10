@@ -23,17 +23,12 @@ const Footer = () => {
     ];
 
     return (
-        <footer className="bg-[#151515] text-white py-4 relative overflow-hidden font-paytone flex flex-col justify-center">
+        <footer className="bg-[#171a1f] text-white py-12 mt-24 relative overflow-hidden font-paytone flex flex-col justify-center h-[60vh]">
             {/* Background decoration matching theme */}
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#f06f2b] to-transparent opacity-50" />
 
             <div className="container mx-auto px-6 relative z-10 w-full">
-                <div className="text-center mb-4">
-                    <h2 className="text-4xl text-white tracking-wide uppercase drop-shadow-lg">
-                        Contact <span className="text-[#f06f2b]">Us</span>
-                    </h2>
-                    <div className="h-1 w-24 bg-[#f06f2b] mx-auto mt-4 rounded-full" />
-                </div>
+
 
                 <div className="mb-4 w-full">
                     <Swiper

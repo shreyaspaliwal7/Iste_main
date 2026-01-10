@@ -23,7 +23,7 @@ const Footer = () => {
     ];
 
     return (
-        <footer className="bg-[#151515] text-white py-4 relative overflow-hidden font-paytone flex flex-col justify-center h-[60vh]">
+        <footer className="bg-[#171a1f] text-white py-12 mt-24 relative overflow-hidden font-paytone flex flex-col justify-center h-[60vh]">
             {/* Background decoration matching theme */}
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#f06f2b] to-transparent opacity-50" />
 

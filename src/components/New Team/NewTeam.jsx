@@ -73,7 +73,7 @@ const TeamMemberCard = ({ member }) => {
     return (
         <div className="team-card bg-white/5 rounded-3xl p-6 flex flex-col items-center text-white shadow-[0_20px_40px_rgba(0,0,0,0.45)] border border-white/10 hover:border-[#F06F2B] transition-all duration-300 hover:shadow-[0_0_25px_rgba(240,111,43,0.5)] hover:-translate-y-1 hover:scale-[1.02] w-full max-w-xs">
             <div className="flex flex-col items-center space-y-4 w-full">
-                <div className="w-48 h-48 rounded-full overflow-hidden border-[3px] border-[#d6c84a] shadow-[0_12px_24px_rgba(0,0,0,0.35)] flex-shrink-0">
+                <div className="w-48 h-48 rounded-full overflow-hidden border-[3px] border-[#F06F2B] shadow-[0_12px_24px_rgba(0,0,0,0.35)] flex-shrink-0">
                     <img
                         src={imgSrc}
                         alt={member.name}

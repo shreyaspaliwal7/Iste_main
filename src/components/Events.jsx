@@ -1,23 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import Reveal from './Reveal';
-import anubhuti from '../assets/logoLight/anubhuti.png';
-import chimerax from '../assets/logoLight/chimerax.png';
-import codathon from '../assets/logoLight/codathon.png';
-import flairHaven from '../assets/logoLight/flairHaven.png';
-import megatrep from '../assets/logoLight/megatrep.png';
-import versionBeta from '../assets/logoLight/versionBeta.png';
-import varnith from '../assets/logoLight/varnith.png';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import anubhuti from '../assets/logoLight/anubhuti.webp';
+import chimerax from '../assets/logoLight/chimerax.webp';
+import codathon from '../assets/logoLight/codathon.webp';
+import flairHaven from '../assets/logoLight/flairHaven.webp';
+import megatrep from '../assets/logoLight/megatrep.webp';
+import versionBeta from '../assets/logoLight/versionBeta.webp';
+import varnith from '../assets/logoLight/varnith.webp';
 
 const Events = () => {
     const [selectedEvent, setSelectedEvent] = useState(null);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setLoading(false);
-        }, 2000);
-        return () => clearTimeout(timer);
-    }, []);
 
     const events = [
         {
@@ -50,7 +42,7 @@ const Events = () => {
             img: codathon,
             description: "Codathon '20 can be marked as the beginning of our Annual student conclave - Chimera. It broke all its previous records by completing over 6,500 registrations for the Inter NIT coding contest. The event is designed in a way for everyone to participate. The seven-day coding event consisted of questions to test the problem-solving ability of the participants. Cash prizes totaling up to Rs 32,000, Internship at HackerEarth, and many other goodies like t-shirts, badges, bags, and books from Coding Blocks and HackerEarth were awarded to deserving candidates. The winner of Codathon '20 was Aryaman Arora from NIT Allahabad and the best female coder was bagged by Ritika Mor.",
             date: 'January 2025',
-            link: 'https://assessment.hackerearth.com/challenges/college/codathon22/',
+            link: ' https://www.codechef.com/ISTETEST',
             isCodathon: true
         },
         {
@@ -84,7 +76,7 @@ const Events = () => {
             img: anubhuti,
             description: "Anubhuti, an annual talk show is conducted by ISTE each year wherein esteemed guests from different backgrounds and tons of experience are invited. It serves as a medium for students to learn and get inspired. This year it was no different, the two speakers were exemplary individuals filled with success stories. The first was Dharamveer Singh Chauhan, the CEO, and Co-founder of Zostel, a treat for all the curious budding entrepreneurs out there. While a firm believer in the ideology of not giving up, he not only motivated students not to give up but also to never stop innovating. The second speaker – Aaditya Mishra, MANIT's very own visiting his alma mater to share his journey into becoming an IPS. It motivated various students who dream to take UPSC in the next phase of their lives.",
             date: 'March 2025',
-            link: 'https://docs.google.com/forms/d/e/1FAIpQLScPeoYisaqjsX0MH2vyHzDTCm81fHil152ysWcAnv4t23viLw/closedform',
+            link: '',
         },
         {
             id: 9,
@@ -119,28 +111,37 @@ const Events = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16">
                     {events.map((event, index) => (
-                        <Reveal key={event.id} delay={index * 50} className="w-full h-full">
+                        <motion.div
+                            key={event.id}
+                            initial={{ scale: 0, opacity: 0 }}
+                            whileInView={{ scale: 1, opacity: 1 }}
+                            transition={{ type: 'tween', duration: 1 }}
+                            viewport={{ once: true }}
+                            className="w-full h-full"
+                        >
                             <div
-
                                 className="bg-[#4d4d4da4] rounded-2xl flex flex-col items-center p-6 md:p-8 min-h-[240px] md:min-h-[280px] h-full transition-all duration-300 hover:scale-105 border border-[#f06f2b]/30 w-full hover:border-[#f06f2b] hover:shadow-[0_0_25px_rgba(188,144,64,0.4),0_20px_30px_rgba(0,0,0,0.5)] group"
                                 style={{
                                     boxShadow: 'rgba(0, 0, 0, 0.4) 0px 10px 20px'
                                 }}
                             >
-                                {loading ? (
-                                    <div className="w-full h-[80px] md:h-[100px] bg-gray-800 animate-pulse rounded-[10%] mb-3"></div>
-                                ) : (
-                                    <div className="w-full overflow-hidden">
+                                <div className="w-full overflow-hidden">
+                                    <motion.div
+                                        initial={{ x: index % 2 === 0 ? '-50%' : '50%', opacity: 0 }}
+                                        whileInView={{ x: 0, opacity: 1 }}
+                                        transition={{ type: 'spring', damping: 20 }}
+                                        viewport={{ once: true }}
+                                    >
                                         <img
                                             src={event.img}
                                             alt={event.name}
-
+                                            loading="lazy"
                                             className={`object-contain rounded-[10%] z-20 mb-3 h-[150px] lg:h-[180px]
-                                                ${event.isCodathon ? 'w-[70%] mx-auto' : 'w-full'} 
-                                                ${(event.name === 'Megatreopuz' || event.isChimeraX) ? 'scale-150' : ''}`}
+                                            ${event.isCodathon ? 'w-[70%] mx-auto' : 'w-full'} 
+                                            ${(event.name === 'Megatreopuz' || event.isChimeraX) ? 'scale-150' : ''}`}
                                         />
-                                    </div>
-                                )}
+                                    </motion.div>
+                                </div>
 
                                 <div className="w-full flex justify-evenly items-center mt-1">
                                     <a
@@ -160,55 +161,65 @@ const Events = () => {
                                     </button>
                                 </div>
                             </div>
-                        </Reveal>
+                        </motion.div>
                     ))}
                 </div>
             </div>
 
-            {selectedEvent && (
-                <div
-                    className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4 backdrop-blur-sm animate-fade-in"
-                    onClick={closeModal}
-                >
-
-                    <div
-                        className="bg-[#1A1A1A] border border-white/10 rounded-2xl w-full max-w-2xl lg:max-w-3xl p-6 md:p-8 relative shadow-2xl flex flex-col items-center max-h-[95vh] overflow-y-auto md:overflow-y-visible"
-                        onClick={(e) => e.stopPropagation()}
+            <AnimatePresence>
+                {selectedEvent && (
+                    <motion.div
+                        className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4 backdrop-blur-sm"
+                        onClick={closeModal}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 1 }}
                     >
-                        <button
-                            onClick={closeModal}
-                            className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors text-2xl"
+
+                        <motion.div
+                            className="bg-[#1A1A1A] border border-white/10 rounded-2xl w-full max-w-2xl lg:max-w-3xl p-6 md:p-8 relative shadow-2xl flex flex-col items-center max-h-[95vh] overflow-y-auto md:overflow-y-visible"
+                            onClick={(e) => e.stopPropagation()}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.5 }}
                         >
-                            &times;
-                        </button>
-
-                        <h2 className="text-2xl md:text-3xl font-paytone text-[#f06f2b] text-center mb-1 uppercase tracking-wide">{selectedEvent.heading}</h2>
-                        <h3 className="text-lg font-medium text-white text-center mb-2">{selectedEvent.title}</h3>
-                        <div className="h-0.5 w-16 bg-[#BD9090] mb-4"></div>
-                        <h4 className="text-sm text-gray-400 mb-6 uppercase tracking-widest">{selectedEvent.date}</h4>
-
-                        <p className="text-center text-gray-300 mb-6 px-4 md:px-8 leading-normal text-sm md:text-base">
-                            {selectedEvent.description}
-                        </p>
-
-                        <div className="flex w-full space-x-4 md:px-12">
-                            <a
-                                href={selectedEvent.link}
-                                target="__blank"
-                                className="flex-1 py-3 text-center bg-[#f06f2b] text-black font-bold rounded-lg hover:bg-[#c98a69] transition-colors"
-                            >
-                                Visit Website
-                            </a>
                             <button
                                 onClick={closeModal}
-                                className="flex-1 py-3 text-center border border-gray-600 text-gray-300 rounded-lg hover:bg-white/5 hover:text-white transition-colors"
+                                className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors text-2xl"
                             >
-                                Close
+                                &times;
                             </button>
-                        </div>
-                    </div>
-                </div>
-            )}
+
+                            <h2 className="text-2xl md:text-3xl font-paytone text-[#f06f2b] text-center mb-1 uppercase tracking-wide">{selectedEvent.heading}</h2>
+                            <h3 className="text-lg font-medium text-white text-center mb-2">{selectedEvent.title}</h3>
+                            <div className="h-0.5 w-16 bg-[#BD9090] mb-4"></div>
+                            <h4 className="text-sm text-gray-400 mb-6 uppercase tracking-widest">{selectedEvent.date}</h4>
+
+                            <p className="text-center text-gray-300 mb-6 px-4 md:px-8 leading-normal text-sm md:text-base">
+                                {selectedEvent.description}
+                            </p>
+
+                            <div className="flex w-full space-x-4 md:px-12">
+                                <a
+                                    href={selectedEvent.link}
+                                    target="__blank"
+                                    className="flex-1 py-3 text-center bg-[#f06f2b] text-black font-bold rounded-lg hover:bg-[#c98a69] transition-colors"
+                                >
+                                    Visit Website
+                                </a>
+                                <button
+                                    onClick={closeModal}
+                                    className="flex-1 py-3 text-center border border-gray-600 text-gray-300 rounded-lg hover:bg-white/5 hover:text-white transition-colors"
+                                >
+                                    Close
+                                </button>
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </section>
     );
 };

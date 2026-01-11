@@ -1,17 +1,15 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Instagram, Facebook, Twitter, Linkedin, ChevronDown } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import team2022 from '../../assets/TeamData2022';
 import team2023 from '../../assets/TeamData2023';
 import team2024 from '../../assets/TeamData2024';
-import team2025 from '../../assets/TeamData2025';
 import dummyImg from '../../assets/team_img/dummy.png';
 
 const OldMembers = () => {
   const [showYear2022, setShowYear2022] = useState(false);
   const [showYear2023, setShowYear2023] = useState(false);
   const [showYear2024, setShowYear2024] = useState(false);
-  const [showYear2025, setShowYear2025] = useState(false);
 
   // Filter and format data for year 4 members only
   const formatMemberData = (data) => {
@@ -35,7 +33,7 @@ const OldMembers = () => {
             photoSrc = member.photo;
           }
         }
-        
+
         return {
           id: index + 1,
           name: member.name || 'Unknown',
@@ -53,35 +51,101 @@ const OldMembers = () => {
   const year2022Members = useMemo(() => formatMemberData(team2022), []);
   const year2023Members = useMemo(() => formatMemberData(team2023), []);
   const year2024Members = useMemo(() => formatMemberData(team2024), []);
-  const year2025Members = useMemo(() => formatMemberData(team2025), []);
 
   const ProfileCard = ({ member }) => {
-    const getImageSrc = (photo) => {
-      if (!photo) return dummyImg;
-      if (typeof photo === 'string') {
-        if (photo.trim() === '') return dummyImg;
-        return photo;
+    const [imgSrc, setImgSrc] = useState(dummyImg);
+    const [retryCount, setRetryCount] = useState(0);
+
+    useEffect(() => {
+      // Convert Google Drive links to thumbnail links
+      let photoUrl = member.image;
+
+      // If it's already the dummy image (from formatMemberData fallback), leave it
+      if (photoUrl === dummyImg) {
+        setImgSrc(dummyImg);
+        return;
       }
-      if (typeof photo === 'object' && photo.default) {
-        return photo.default;
+
+      if (photoUrl && typeof photoUrl === 'string' && photoUrl.includes('drive.google.com')) {
+        const idMatch = photoUrl.match(/id=([a-zA-Z0-9_-]+)/);
+        if (idMatch) {
+          photoUrl = `https://drive.google.com/thumbnail?id=${idMatch[1]}&sz=w500`;
+        }
       }
-      if (typeof photo === 'object') {
-        return photo;
+
+      setImgSrc(photoUrl);
+      setRetryCount(0);
+    }, [member.image]);
+
+    const handleImageError = () => {
+      if (retryCount < 3 && imgSrc && imgSrc !== dummyImg) {
+        // Add a small delay before retrying
+        setTimeout(() => {
+          setRetryCount(prev => prev + 1);
+          // Append retry param to bypass simple cache issues or just trigger reload
+          const separator = imgSrc.includes('?') ? '&' : '?';
+          // Remove previous retry param if exists to avoid infinite appending
+          const cleanSrc = imgSrc.replace(/[?&]retry=\d+/, '');
+          setImgSrc(`${cleanSrc}${separator}retry=${retryCount + 1}`);
+        }, 1000);
+      } else {
+        // Fallback to dummy image if retries exhausted
+        setImgSrc(dummyImg);
       }
-      return dummyImg;
+    };
+
+    // Helper function to render social icons - always show, but make non-clickable when no link
+    const renderSocial = (url, Icon, colorClass) => {
+      const hasLink = url && typeof url === 'string' && url.trim() !== '' && url.toLowerCase() !== 'none';
+
+      if (!hasLink) {
+        return (
+          <div className="text-gray-600 cursor-default">
+            <Icon size={26} />
+          </div>
+        );
+      }
+
+      let href = url;
+      if (!href.startsWith('http')) {
+        if (href.includes('instagram.com')) {
+          href = `https://${href.replace(/^https?:\/\//, '')}`;
+        } else if (href.includes('twitter.com') || href.includes('x.com')) {
+          href = `https://twitter.com/${href.replace('@', '').replace(/^twitter\.com\//, '').replace(/^x\.com\//, '')}`;
+        } else if (href.includes('linkedin.com')) {
+          href = `https://${href.replace(/^https?:\/\//, '')}`;
+        } else if (href.includes('facebook.com')) {
+          href = `https://${href.replace(/^https?:\/\//, '')}`;
+        } else if (href.startsWith('@')) {
+          // Instagram handle
+          href = `https://instagram.com/${href.replace('@', '')}`;
+        } else {
+          href = `https://${href.replace(/^https?:\/\//, '')}`;
+        }
+      }
+
+      return (
+        <a
+          href={href}
+          className={`text-gray-400 hover:${colorClass} transition-colors`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Icon size={26} />
+        </a>
+      );
     };
 
     return (
       <div className="bg-[#303030] rounded-3xl p-6 flex flex-col items-center text-white shadow-[0_20px_40px_rgba(0,0,0,0.45)] border border-white/10 hover:border-[#F06F2B] transition-all duration-300 hover:shadow-[0_0_40px_rgba(240,111,43,0.9)] hover:-translate-y-1 hover:scale-[1.02]">
         <div className="flex flex-col items-center space-y-4">
-          <div className="w-32 h-32 rounded-full overflow-hidden border-[3px] border-[#d6c84a] shadow-[0_12px_24px_rgba(0,0,0,0.35)]">
+          <div className="w-32 h-32 rounded-full overflow-hidden border-[3px] border-[#F06F2B] shadow-[0_12px_24px_rgba(0,0,0,0.35)]">
             <img
-              src={getImageSrc(member.image)}
+              src={imgSrc}
               alt={member.name}
               className="w-full h-full object-cover"
-              onError={(e) => {
-                e.target.src = dummyImg;
-              }}
+              onError={handleImageError}
+              referrerPolicy="no-referrer"
             />
           </div>
 
@@ -93,46 +157,10 @@ const OldMembers = () => {
           </h3>
 
           <div className="flex gap-4 mt-1 text-white">
-            {member.social.linkedin && typeof member.social.linkedin === 'string' && member.social.linkedin.trim() !== '' && member.social.linkedin.toLowerCase() !== 'none' && (
-              <a
-                href={member.social.linkedin.startsWith('http') ? member.social.linkedin : `https://${member.social.linkedin.replace(/^https?:\/\//, '')}`}
-                className="hover:text-blue-500 transition-colors"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Linkedin size={26} />
-              </a>
-            )}
-            {member.social.instagram && typeof member.social.instagram === 'string' && member.social.instagram.trim() !== '' && member.social.instagram.toLowerCase() !== 'none' && (
-              <a
-                href={member.social.instagram.startsWith('http') ? member.social.instagram : (member.social.instagram.includes('instagram.com') ? `https://${member.social.instagram.replace(/^https?:\/\//, '')}` : `https://instagram.com/${member.social.instagram.replace('@', '').replace(/^instagram\.com\//, '')}`)}
-                className="hover:text-pink-400 transition-colors"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Instagram size={26} />
-              </a>
-            )}
-            {member.social.facebook && typeof member.social.facebook === 'string' && member.social.facebook.trim() !== '' && member.social.facebook.toLowerCase() !== 'none' && (
-              <a
-                href={member.social.facebook.startsWith('http') ? member.social.facebook : `https://${member.social.facebook.replace(/^https?:\/\//, '')}`}
-                className="hover:text-blue-400 transition-colors"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Facebook size={26} />
-              </a>
-            )}
-            {member.social.twitter && typeof member.social.twitter === 'string' && member.social.twitter.trim() !== '' && member.social.twitter.toLowerCase() !== 'none' && (
-              <a
-                href={member.social.twitter.startsWith('http') ? member.social.twitter : `https://twitter.com/${member.social.twitter.replace('@', '').replace(/^twitter\.com\//, '')}`}
-                className="hover:text-sky-400 transition-colors"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Twitter size={26} />
-              </a>
-            )}
+            {renderSocial(member.social.instagram, Instagram, "text-pink-400")}
+            {renderSocial(member.social.facebook, Facebook, "text-blue-400")}
+            {renderSocial(member.social.twitter, Twitter, "text-sky-400")}
+            {renderSocial(member.social.linkedin, Linkedin, "text-blue-500")}
           </div>
         </div>
       </div>
@@ -196,24 +224,11 @@ const OldMembers = () => {
       </div>
 
       <div className="relative max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 text-orange-500">
-            CONTACTS OF VERTICAL HEAD
-          </h1>
-        </div>
-
         <div className="mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-white text-center">
-            PREVIOUS YEARS TEAMS
+            Previous Years Batch
           </h2>
         </div>
-
-        <CollapsibleSection
-          year="YEAR - 2025"
-          isOpen={showYear2025}
-          onToggle={() => setShowYear2025((prev) => !prev)}
-          members={year2025Members}
-        />
 
         <CollapsibleSection
           year="YEAR - 2024"

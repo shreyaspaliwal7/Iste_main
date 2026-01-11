@@ -6,6 +6,14 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from '@studio-freight/lenis';
 import memories1 from '../../assets/galleryImages/memories-1.JPG';
 
+// Explicit imports for Version-beta images
+import img1Webp from '../../assets/galleryImages/Version-beta/img1.webp';
+import img4Webp from '../../assets/galleryImages/Version-beta/img4.webp';
+import img5Webp from '../../assets/galleryImages/Version-beta/img5.webp';
+import img6Webp from '../../assets/galleryImages/Version-beta/img6.webp';
+import img7Webp from '../../assets/galleryImages/Version-beta/img7.webp';
+import img8Webp from '../../assets/galleryImages/Version-beta/img8.webp';
+
 const Gallery = () => {
   const pageRef = useRef(null);
 
@@ -15,10 +23,20 @@ const Gallery = () => {
     const imagesMap = {};
     
     // Define event names
-    const eventNames = ['flair-heaven', 'version-beta', 'anubhuti', 'chimera-x', 'codathon'];
+    const eventNames = ['Version-beta', 'flair-heaven', 'anubhuti', 'chimera-x', 'codathon'];
     
     // Try to load images from event-specific folders
     // Note: import.meta.glob requires static paths, so we need to check each folder separately
+    try {
+      // Version-Beta - Use explicit imports to avoid lazy loading issues
+      const versionBetaImages = [img1Webp, img4Webp, img5Webp, img6Webp, img7Webp, img8Webp].filter(Boolean);
+      imagesMap['Version-beta'] = versionBetaImages.length > 0 ? versionBetaImages : [memories1];
+      console.log('Version-beta images loaded:', versionBetaImages);
+    } catch (error) {
+      console.warn('Could not load images for Version-beta:', error);
+      imagesMap['Version-beta'] = [memories1];
+    }
+
     try {
       // Flair-Haven
       const flairHavenImages = import.meta.glob(
@@ -31,20 +49,6 @@ const Gallery = () => {
     } catch (error) {
       console.warn('Could not load images for flair-haven:', error);
       imagesMap['flair-heaven'] = [];
-    }
-
-    try {
-      // Version-Beta
-      const versionBetaImages = import.meta.glob(
-        '../assets/galleryImages/version-beta/*.{png,jpeg,jpg,svg,jfif,PNG,JPG,JPEG}',
-        { eager: true }
-      );
-      if (Object.keys(versionBetaImages).length > 0) {
-        imagesMap['version-beta'] = Object.values(versionBetaImages).map(img => img.default || img).filter(Boolean);
-      }
-    } catch (error) {
-      console.warn('Could not load images for version-beta:', error);
-      imagesMap['version-beta'] = [];
     }
 
     try {
@@ -124,14 +128,14 @@ const Gallery = () => {
 
   const events = [
     {
+      id: 'Version-beta',
+      name: 'Version-Beta',
+      images: eventImagesMap['Version-beta'] || [],
+    },
+    {
       id: 'flair-heaven',
       name: 'Flair-Haven',
       images: eventImagesMap['flair-heaven'] || [],
-    },
-    {
-      id: 'version-beta',
-      name: 'Version-Beta',
-      images: eventImagesMap['version-beta'] || [],
     },
     {
       id: 'anubhuti',
@@ -154,31 +158,64 @@ const Gallery = () => {
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
-    const lenis = new Lenis({ smooth: true });
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
+    // Disable Lenis completely - use native scrolling
+    console.log('Using native scrolling with GSAP animations only');
 
-    const items = pageRef.current?.querySelectorAll('.gallery-item') || [];
-    items.forEach((el) => {
-      gsap.fromTo(
-        el,
-        { y: 40, autoAlpha: 0 },
+    // GSAP Animations for gallery sections
+    const gallerySections = gsap.utils.toArray('.gallery-masonry');
+    
+    gallerySections.forEach((section) => {
+      const images = section.querySelectorAll('.gallery-item');
+      
+      // Set initial states
+      gsap.set(images, {
+        opacity: 0,
+        x: (index) => index % 2 === 0 ? -100 : 100, // Even from left, odd from right
+        scale: 0.8
+      });
+
+      // Animate images when section comes into view
+      gsap.to(images, {
+        opacity: 1,
+        x: 0,
+        scale: 1,
+        duration: 0.8,
+        stagger: 0.15,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: section,
+          start: "top 80%",
+          toggleActions: "play none none reverse"
+        }
+      });
+    });
+
+    // Animate section headers
+    const sectionHeaders = gsap.utils.toArray('section h2');
+    sectionHeaders.forEach((header) => {
+      gsap.fromTo(header,
+        {
+          y: 50,
+          opacity: 0,
+          scale: 0.9
+        },
         {
           y: 0,
-          autoAlpha: 1,
-          duration: 0.8,
-          ease: 'power3.out',
-          scrollTrigger: { trigger: el, start: 'top 85%' },
+          opacity: 1,
+          scale: 1,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: header,
+            start: "top 85%",
+            toggleActions: "play none none reverse"
+          }
         }
       );
     });
 
     return () => {
       ScrollTrigger.getAll().forEach((t) => t.kill());
-      if (lenis) lenis.destroy();
     };
   }, []);
 
@@ -191,7 +228,7 @@ const Gallery = () => {
   );
 
   return (
-    <div ref={pageRef} className="min-h-screen bg-black text-white py-20 px-4 md:px-8">
+    <div ref={pageRef} className="min-h-screen bg-black text-white py-20 px-4 md:px-8 overflow-y-auto touch-pan-y">
       <div className="max-w-7xl mx-auto">
 
         <div className="mb-16">

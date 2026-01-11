@@ -6,40 +6,147 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from '@studio-freight/lenis';
 import memories1 from '../../assets/galleryImages/memories-1.JPG';
 
-// Flair-Haven images
-import flairHaven1 from '../../assets/galleryImages/flair-heaven/flair-heaven-3.png';
-import flairHaven2 from '../../assets/galleryImages/flair-heaven/flair-heaven-4.png';
-import flairHaven3 from '../../assets/galleryImages/flair-heaven/flair-heaven2.png';
-import flairHaven4 from '../../assets/galleryImages/flair-heaven/image.png';
-
 const Gallery = () => {
   const pageRef = useRef(null);
 
+  // Dynamically import all gallery images organized by event folders
+  // Structure: galleryImages/event-name/image1.jpg, image2.jpg, etc.
+  const eventImagesMap = useMemo(() => {
+    const imagesMap = {};
+    
+    // Define event names
+    const eventNames = ['flair-heaven', 'version-beta', 'anubhuti', 'chimera-x', 'codathon'];
+    
+    // Try to load images from event-specific folders
+    // Note: import.meta.glob requires static paths, so we need to check each folder separately
+    try {
+      // Flair-Haven
+      const flairHavenImages = import.meta.glob(
+        '../assets/galleryImages/flair-heaven/*.{png,jpeg,jpg,svg,jfif,PNG,JPG,JPEG}',
+        { eager: true }
+      );
+      if (Object.keys(flairHavenImages).length > 0) {
+        imagesMap['flair-heaven'] = Object.values(flairHavenImages).map(img => img.default || img).filter(Boolean);
+      }
+    } catch (error) {
+      console.warn('Could not load images for flair-haven:', error);
+      imagesMap['flair-heaven'] = [];
+    }
+
+    try {
+      // Version-Beta
+      const versionBetaImages = import.meta.glob(
+        '../assets/galleryImages/version-beta/*.{png,jpeg,jpg,svg,jfif,PNG,JPG,JPEG}',
+        { eager: true }
+      );
+      if (Object.keys(versionBetaImages).length > 0) {
+        imagesMap['version-beta'] = Object.values(versionBetaImages).map(img => img.default || img).filter(Boolean);
+      }
+    } catch (error) {
+      console.warn('Could not load images for version-beta:', error);
+      imagesMap['version-beta'] = [];
+    }
+
+    try {
+      // Anubhuti
+      const anubhutiImages = import.meta.glob(
+        '../assets/galleryImages/anubhuti/*.{png,jpeg,jpg,svg,jfif,PNG,JPG,JPEG}',
+        { eager: true }
+      );
+      if (Object.keys(anubhutiImages).length > 0) {
+        imagesMap['anubhuti'] = Object.values(anubhutiImages).map(img => img.default || img).filter(Boolean);
+      }
+    } catch (error) {
+      console.warn('Could not load images for anubhuti:', error);
+      imagesMap['anubhuti'] = [];
+    }
+
+    try {
+      // Chimera-X
+      const chimeraXImages = import.meta.glob(
+        '../assets/galleryImages/chimera-x/*.{png,jpeg,jpg,svg,jfif,PNG,JPG,JPEG}',
+        { eager: true }
+      );
+      if (Object.keys(chimeraXImages).length > 0) {
+        imagesMap['chimera-x'] = Object.values(chimeraXImages).map(img => img.default || img).filter(Boolean);
+      }
+    } catch (error) {
+      console.warn('Could not load images for chimera-x:', error);
+      imagesMap['chimera-x'] = [];
+    }
+
+    try {
+      // Codathon
+      const codathonImages = import.meta.glob(
+        '../assets/galleryImages/codathon/*.{png,jpeg,jpg,svg,jfif,PNG,JPG,JPEG}',
+        { eager: true }
+      );
+      if (Object.keys(codathonImages).length > 0) {
+        imagesMap['codathon'] = Object.values(codathonImages).map(img => img.default || img).filter(Boolean);
+      }
+    } catch (error) {
+      console.warn('Could not load images for codathon:', error);
+      imagesMap['codathon'] = [];
+    }
+    
+    // Fallback: Load all images from main galleryImages folder if event folders don't exist
+    if (Object.keys(imagesMap).length === 0) {
+      try {
+        const allImages = import.meta.glob(
+          '../assets/galleryImages/*.{png,jpeg,jpg,svg,jfif,PNG,JPG,JPEG}',
+          { eager: true }
+        );
+        
+        const imageArray = Object.values(allImages).map(img => {
+          if (typeof img === 'string') return img;
+          if (img.default) return img.default;
+          return img;
+        }).filter(Boolean);
+        
+        // If images are found in main folder, distribute them (you can manually organize them later)
+        if (imageArray.length > 0) {
+          console.log('Found images in main folder, distributing across events');
+          // Distribute images across events
+          eventNames.forEach((eventName, index) => {
+            const startIdx = index * 4;
+            const endIdx = eventName === 'codathon' ? startIdx + 6 : startIdx + 4;
+            imagesMap[eventName] = imageArray.slice(startIdx, endIdx).filter(Boolean);
+          });
+        }
+      } catch (error) {
+        console.error('Error loading gallery images:', error);
+      }
+    }
+    
+    console.log('Event images map:', imagesMap);
+    return imagesMap;
+  }, []);
+
   const events = [
     {
-      id: 'flair-haven',
+      id: 'flair-heaven',
       name: 'Flair-Haven',
-      images: [flairHaven1, flairHaven2, flairHaven3, flairHaven4],
+      images: eventImagesMap['flair-heaven'] || [],
     },
     {
       id: 'version-beta',
       name: 'Version-Beta',
-      images: Array(4).fill(flairHaven1),
+      images: eventImagesMap['version-beta'] || [],
     },
     {
       id: 'anubhuti',
       name: 'Anubhuti',
-      images: Array(4).fill(flairHaven2),
+      images: eventImagesMap['anubhuti'] || [],
     },
     {
       id: 'chimera-x',
       name: 'Chimera-X',
-      images: Array(4).fill(flairHaven3),
+      images: eventImagesMap['chimera-x'] || [],
     },
     {
       id: 'codathon',
       name: 'Codathon',
-      images: Array(6).fill(flairHaven4),
+      images: eventImagesMap['codathon'] || [],
     },
   ];
 

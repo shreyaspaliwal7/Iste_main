@@ -1209,8 +1209,10 @@ const data = [
 		name: 'Yuvraj Singh Rajput ',
 		year: '4th',
 		vertical: 'Core Team Member',
+	},
+];
 
-	// Sort data alphabetically by name
-	data.sort((a, b) => a.name.localeCompare(b.name));
+// Sort data alphabetically by name
+data.sort((a, b) => a.name.localeCompare(b.name));
 
-	export default data;
+export default data;

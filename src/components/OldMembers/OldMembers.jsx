@@ -1,17 +1,77 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Instagram, Facebook, Twitter, Linkedin, ChevronDown } from 'lucide-react';
-import { AnimatePresence, motion } from 'framer-motion';
 import team2022 from '../../assets/TeamData2022';
 import team2023 from '../../assets/TeamData2023';
 import team2024 from '../../assets/TeamData2024';
-import dummyImg from '../../assets/team_img/dummy.png';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const OldMembers = () => {
+  const containerRef = useRef();
   const [showYear2022, setShowYear2022] = useState(false);
   const [showYear2023, setShowYear2023] = useState(false);
   const [showYear2024, setShowYear2024] = useState(false);
 
-  // Filter and format data for year 4 members only
+  // GSAP animations
+  useGSAP(() => {
+    const headings = gsap.utils.toArray('.year-heading');
+    headings.forEach(heading => {
+      gsap.fromTo(heading,
+        {
+          y: 30,
+          opacity: 0,
+          scale: 0.9
+        },
+        {
+          y: 0,
+          opacity: 1,
+          scale: 1,
+          duration: 1.2,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: heading,
+            start: "top 85%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+    });
+
+    // Initial state for cards
+    gsap.set(".team-card", {
+      opacity: 0,
+      scale: 0.9,
+      y: 30
+    });
+
+    // Animate entire grid when it comes into view
+    const grids = gsap.utils.toArray('.team-grid');
+    grids.forEach(grid => {
+      gsap.to(grid.querySelectorAll('.team-card'), {
+        scrollTrigger: {
+          trigger: grid,
+          start: "top 80%",
+          toggleActions: "play none none reverse"
+        },
+        opacity: 1,
+        scale: 1,
+        y: 0,
+        duration: 0.8,
+        stagger: 0.1, // Auto-play the cascade
+        ease: "power3.out",
+        overwrite: true,
+        clearProps: "all" // Remove inline styles after animation so CSS hover works
+      });
+    });
+  }, { scope: containerRef });
+
+  // Dummy image for fallback
+  const dummyImg = 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'100\' height=\'100\' viewBox=\'0 0 100 100\'%3E%3Crect width=\'100\' height=\'100\' fill=\'%23333\'/%3E%3Ctext x=\'50\' y=\'50\' text-anchor=\'middle\' dy=\'0.3em\' fill=\'%23666\' font-family=\'Arial\' font-size=\'14\'%3ENo Photo%3C/text%3E%3C/svg%3E';
+
   const formatMemberData = (data) => {
     if (!data || !Array.isArray(data)) {
       return [];
@@ -197,7 +257,7 @@ const OldMembers = () => {
               className="mt-6 bg-[#0f0f0f] rounded-3xl p-6 md:p-8 border border-[#F06F2B]/60 shadow-[0_25px_50px_rgba(0,0,0,0.35)]"
             >
               {members.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
+                <div className="team-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
                   {members.map((member) => (
                     <ProfileCard key={member.id} member={member} />
                   ))}
@@ -213,7 +273,7 @@ const OldMembers = () => {
   };
 
   return (
-    <div className="relative min-h-screen bg-black text-white py-20 px-4 md:px-8 overflow-hidden">
+    <div ref={containerRef} className="relative min-h-screen bg-black text-white py-20 px-4 md:px-8 overflow-hidden">
       {/* Orange accent lines in background - fixed to remain during scroll */}
       <div className="pointer-events-none fixed inset-0 opacity-60 z-0">
         {Array.from({ length: 14 }).map((_, idx) => (
@@ -232,26 +292,38 @@ const OldMembers = () => {
           </h2>
         </div>
 
-        <CollapsibleSection
-          year="YEAR - 2024"
-          isOpen={showYear2024}
-          onToggle={() => setShowYear2024((prev) => !prev)}
-          members={year2024Members}
-        />
+        <div className="mb-14">
+          <div className="mb-6"></div>
+          <CollapsibleSection
+            year="Batch - 2024"
+            isOpen={showYear2024}
+            onToggle={() => setShowYear2024((prev) => !prev)}
+            members={year2024Members}
+          />
+          <div className="mb-6"></div>
+        </div>
 
-        <CollapsibleSection
-          year="YEAR - 2023"
-          isOpen={showYear2023}
-          onToggle={() => setShowYear2023((prev) => !prev)}
-          members={year2023Members}
-        />
+        <div className="mb-14">
+          <div className="mb-6"></div>
+          <CollapsibleSection
+            year="Batch - 2023"
+            isOpen={showYear2023}
+            onToggle={() => setShowYear2023((prev) => !prev)}
+            members={year2023Members}
+          />
+          <div className="mb-6"></div>
+        </div>
 
-        <CollapsibleSection
-          year="YEAR - 2022"
-          isOpen={showYear2022}
-          onToggle={() => setShowYear2022((prev) => !prev)}
-          members={year2022Members}
-        />
+        <div className="mb-14">
+          <div className="mb-6"></div>
+          <CollapsibleSection
+            year="Batch - 2022"
+            isOpen={showYear2022}
+            onToggle={() => setShowYear2022((prev) => !prev)}
+            members={year2022Members}
+          />
+          <div className="mb-6"></div>
+        </div>
       </div>
     </div>
   );

@@ -6,6 +6,12 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from '@studio-freight/lenis';
 import memories1 from '../../assets/galleryImages/memories-1.JPG';
 
+// Flair-Haven images
+import flairHaven1 from '../../assets/galleryImages/flair-heaven/flair-heaven-3.png';
+import flairHaven2 from '../../assets/galleryImages/flair-heaven/flair-heaven-4.png';
+import flairHaven3 from '../../assets/galleryImages/flair-heaven/flair-heaven2.png';
+import flairHaven4 from '../../assets/galleryImages/flair-heaven/image.png';
+
 const Gallery = () => {
   const pageRef = useRef(null);
 
@@ -13,27 +19,27 @@ const Gallery = () => {
     {
       id: 'flair-haven',
       name: 'Flair-Haven',
-      images: Array(4).fill(memories1),
+      images: [flairHaven1, flairHaven2, flairHaven3, flairHaven4],
     },
     {
       id: 'version-beta',
       name: 'Version-Beta',
-      images: Array(4).fill(memories1),
+      images: Array(4).fill(flairHaven1),
     },
     {
       id: 'anubhuti',
       name: 'Anubhuti',
-      images: Array(4).fill(memories1),
+      images: Array(4).fill(flairHaven2),
     },
     {
       id: 'chimera-x',
       name: 'Chimera-X',
-      images: Array(4).fill(memories1),
+      images: Array(4).fill(flairHaven3),
     },
     {
       id: 'codathon',
       name: 'Codathon',
-      images: Array(6).fill(memories1),
+      images: Array(6).fill(flairHaven4),
     },
   ];
 

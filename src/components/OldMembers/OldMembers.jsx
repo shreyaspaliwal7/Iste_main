@@ -227,7 +227,7 @@ const OldMembers = () => {
 
       <div className="relative max-w-7xl mx-auto z-10">
         <div className="mt-8 mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-white text-center">
+          <h2 className="year-heading text-4xl font-paytone text-[#F06F2B] mb-16 text-center uppercase tracking-wider">
             Previous Years Batch
           </h2>
         </div>

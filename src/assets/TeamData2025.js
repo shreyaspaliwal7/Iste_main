@@ -69,7 +69,7 @@ const data = [
       "facebookProfile": "",
       "xProfile": "",
       "githubProfile": "https://github.com/Wizardcode28",
-      "photo": "https://drive.google.com/open?id=1M9F0vXKAgrOVvBCKUSbn3b32ZG0bg3BW"
+      "photo": "https://drive.google.com/open?id=1EYGWRULGYv60sqKLnyfGI3S7OpQFuqaa"
    },
    {
       "Timestamp": "19/06/2025 00:11:42",

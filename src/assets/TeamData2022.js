@@ -1209,11 +1209,8 @@ const data = [
 		name: 'Yuvraj Singh Rajput ',
 		year: '4th',
 		vertical: 'Core Team Member',
-		linkedinProfile: 'linkedin.com/in/yuvraj-singh-rajput-8a77a3210',
-		instagramProfile: 'https://www.instagram.com/sinyuvi_/',
-		facebookProfile: 'https://www.facebook.com/profile.php?id=100052119575518',
-		photo: '',
-	}
-];
 
-export default data;
+	// Sort data alphabetically by name
+	data.sort((a, b) => a.name.localeCompare(b.name));
+
+	export default data;

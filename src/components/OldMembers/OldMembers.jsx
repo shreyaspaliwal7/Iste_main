@@ -45,7 +45,8 @@ const OldMembers = () => {
             twitter: member.twitterProfile || member.xProfile || '',
           }
         };
-      });
+      })
+      .sort((a, b) => a.name.localeCompare(b.name));
   };
 
   const year2022Members = useMemo(() => formatMemberData(team2022), []);
@@ -101,7 +102,7 @@ const OldMembers = () => {
       if (!hasLink) {
         return (
           <div className="text-gray-600 cursor-default">
-            <Icon size={26} />
+            <Icon size={20} />
           </div>
         );
       }
@@ -131,15 +132,15 @@ const OldMembers = () => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Icon size={26} />
+          <Icon size={20} />
         </a>
       );
     };
 
     return (
-      <div className="bg-[#303030] rounded-3xl p-6 flex flex-col items-center text-white shadow-[0_20px_40px_rgba(0,0,0,0.45)] border border-white/10 hover:border-[#F06F2B] transition-all duration-300 hover:shadow-[0_0_40px_rgba(240,111,43,0.9)] hover:-translate-y-1 hover:scale-[1.02]">
-        <div className="flex flex-col items-center space-y-4">
-          <div className="w-32 h-32 rounded-full overflow-hidden border-[3px] border-[#F06F2B] shadow-[0_12px_24px_rgba(0,0,0,0.35)]">
+      <div className="team-card bg-white/5 rounded-3xl p-6 flex flex-col items-center text-white shadow-[0_20px_40px_rgba(0,0,0,0.45)] border border-white/10 hover:border-[#F06F2B] transition-all duration-300 hover:shadow-[0_0_25px_rgba(240,111,43,0.5)] hover:-translate-y-1 hover:scale-[1.02] w-full max-w-xs">
+        <div className="flex flex-col items-center space-y-4 w-full">
+          <div className="w-48 h-48 rounded-full overflow-hidden border-[3px] border-[#F06F2B] shadow-[0_12px_24px_rgba(0,0,0,0.35)] flex-shrink-0">
             <img
               src={imgSrc}
               alt={member.name}
@@ -150,13 +151,14 @@ const OldMembers = () => {
           </div>
 
           <h3
-            className="text-lg text-center leading-tight"
+            className="text-lg text-center leading-tight truncate w-full px-2"
             style={{ fontFamily: "'Paytone One', sans-serif" }}
+            title={member.name}
           >
             {member.name}
           </h3>
 
-          <div className="flex gap-4 mt-1 text-white">
+          <div className="flex gap-4 mt-1 text-white justify-center">
             {renderSocial(member.social.instagram, Instagram, "text-pink-400")}
             {renderSocial(member.social.facebook, Facebook, "text-blue-400")}
             {renderSocial(member.social.twitter, Twitter, "text-sky-400")}
@@ -195,7 +197,7 @@ const OldMembers = () => {
               className="mt-6 bg-[#0f0f0f] rounded-3xl p-6 md:p-8 border border-[#F06F2B]/60 shadow-[0_25px_50px_rgba(0,0,0,0.35)]"
             >
               {members.length > 0 ? (
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
                   {members.map((member) => (
                     <ProfileCard key={member.id} member={member} />
                   ))}
@@ -212,8 +214,8 @@ const OldMembers = () => {
 
   return (
     <div className="relative min-h-screen bg-black text-white py-20 px-4 md:px-8 overflow-hidden">
-      {/* Orange accent lines in background */}
-      <div className="pointer-events-none absolute inset-0 opacity-60">
+      {/* Orange accent lines in background - fixed to remain during scroll */}
+      <div className="pointer-events-none fixed inset-0 opacity-60 z-0">
         {Array.from({ length: 14 }).map((_, idx) => (
           <span
             key={idx}
@@ -223,8 +225,8 @@ const OldMembers = () => {
         ))}
       </div>
 
-      <div className="relative max-w-7xl mx-auto">
-        <div className="mb-12">
+      <div className="relative max-w-7xl mx-auto z-10">
+        <div className="mt-8 mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-white text-center">
             Previous Years Batch
           </h2>

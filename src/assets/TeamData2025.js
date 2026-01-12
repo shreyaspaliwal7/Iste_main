@@ -1,4 +1,4 @@
-const data = [
+﻿const data = [
    {
       "Timestamp": "18/06/2025 23:29:22",
       "name": "Shashank agarwal ",
@@ -1500,7 +1500,7 @@ const data = [
    {
       "timestamp": "6/16/2023 20:50:35",
       "emailAddress": "patidarvasu22@gmail.com",
-      "name": "Aditya Patidar ",
+      "name": "Aditya Patidar",
       "year": "4th",
       "vertical": "Core Team Member",
       "linkedinProfile": "https://www.linkedin.com/in/aditya-patidar-4aaaa1257",

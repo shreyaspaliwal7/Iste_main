@@ -2,6 +2,7 @@ import React from 'react';
 import { Instagram, Facebook, Twitter, Linkedin } from 'lucide-react';
 import { motion } from 'framer-motion';
 import teamData from '../../assets/TeamData2025';
+import dummyImage from '../../assets/team_img/dummy.png';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -17,9 +18,12 @@ const TeamMemberCard = ({ member }) => {
         // Convert Google Drive links to thumbnail links
         let photoUrl = member.photo;
 
-        if (photoUrl === "") {
-            photoUrl = null;
-        } else if (photoUrl && photoUrl.includes('drive.google.com')) {
+        if (!photoUrl || photoUrl.trim() === "") {
+            setImgSrc(dummyImage);
+            return;
+        }
+
+        if (photoUrl.includes('drive.google.com')) {
             const idMatch = photoUrl.match(/id=([a-zA-Z0-9_-]+)/);
             if (idMatch) {
                 photoUrl = `https://drive.google.com/thumbnail?id=${idMatch[1]}&sz=w500`;
@@ -29,6 +33,16 @@ const TeamMemberCard = ({ member }) => {
         setImgSrc(photoUrl);
         setRetryCount(0);
     }, [member.photo]);
+
+    // Custom styles for specific members whose images need adjustment
+    const customStyles = {
+        "Aditya Patidar": { objectPosition: "60% 25%" },
+        "Jatin Baiswar": { objectPosition: "50% 25%" },
+        "Vivek Kumar Taldi": { objectPosition: "50% 15%" },
+        "Sarika": { objectPosition: "50% 1%" },
+        "Deekshita Mathur": { transform: "rotate(-90deg)" },
+        "Ayush Pratap Singh": { transform: "scale(1.2) translateX(-19px) translateY(-15px)" }
+    };
 
     const handleImageError = () => {
         if (retryCount < 3 && imgSrc) {
@@ -41,6 +55,8 @@ const TeamMemberCard = ({ member }) => {
                 const cleanSrc = imgSrc.replace(/[?&]retry=\d+/, '');
                 setImgSrc(`${cleanSrc}${separator}retry=${retryCount + 1}`);
             }, 1000);
+        } else {
+            setImgSrc(dummyImage);
         }
     };
 
@@ -79,6 +95,7 @@ const TeamMemberCard = ({ member }) => {
                         alt={member.name}
                         onError={handleImageError}
                         className="w-full h-full object-cover"
+                        style={customStyles[member.name] || {}}
                         referrerPolicy="no-referrer"
                     />
                 </div>
@@ -250,7 +267,7 @@ const NewTeam = () => {
                         <h2 className="year-heading text-4xl font-paytone text-[#F06F2B] mb-16 text-center uppercase tracking-wider">
                             Final Year
                         </h2>
-                        <div className="team-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
+                        <div className="team-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-2 gap-y-8 justify-items-center">
                             {finalYear.map((member, idx) => (
                                 <TeamMemberCard key={`final-${idx}`} member={member} />
                             ))}
@@ -264,7 +281,7 @@ const NewTeam = () => {
                         <h2 className="year-heading text-4xl font-paytone text-[#F06F2B] mb-16 text-center uppercase tracking-wider">
                             Third Year
                         </h2>
-                        <div className="team-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
+                        <div className="team-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-2 gap-y-8 justify-items-center">
                             {thirdYear.map((member, idx) => (
                                 <TeamMemberCard key={`third-${idx}`} member={member} />
                             ))}
@@ -278,7 +295,7 @@ const NewTeam = () => {
                         <h2 className="year-heading text-4xl font-paytone text-[#F06F2B] mb-16 text-center uppercase tracking-wider">
                             Second Year
                         </h2>
-                        <div className="team-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
+                        <div className="team-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-2 gap-y-8 justify-items-center">
                             {secondYear.map((member, idx) => (
                                 <TeamMemberCard key={`second-${idx}`} member={member} />
                             ))}

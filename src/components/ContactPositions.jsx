@@ -1,18 +1,50 @@
 import { Facebook, Instagram, Linkedin, Twitter } from 'lucide-react';
 import Navbar from "./Navbar";
 import { technicalHeads, creativeHeads, managementHeads } from '../assets/VerticalHeads';
+import dummyImage from '../assets/team_img/dummy.png';
+import { useState, useEffect } from 'react';
 
 const ProfileCard = ({ vertical, name, emailAddress, phoneNumber, linkedinProfile, instagramProfile, facebookProfile, xProfile, photo }) => {
-    // Image handling validation
-    let imageSrc = photo;
-    if (!imageSrc || imageSrc.trim() === "") {
-        imageSrc = null;
-    } else if (imageSrc.includes('drive.google.com')) {
-        const idMatch = imageSrc.match(/id=([a-zA-Z0-9_-]+)/);
-        if (idMatch) {
-            imageSrc = `https://drive.google.com/thumbnail?id=${idMatch[1]}&sz=w500`;
+    const [imgSrc, setImgSrc] = useState(null);
+    const [retryCount, setRetryCount] = useState(0);
+
+    useEffect(() => {
+        let imageSrc = photo;
+        if (!imageSrc || imageSrc.trim() === "") {
+            setImgSrc(dummyImage);
+            return;
         }
-    }
+
+        if (imageSrc.includes('drive.google.com')) {
+            const idMatch = imageSrc.match(/id=([a-zA-Z0-9_-]+)/);
+            if (idMatch) {
+                imageSrc = `https://drive.google.com/thumbnail?id=${idMatch[1]}&sz=w500`;
+            }
+        }
+        setImgSrc(imageSrc);
+        setRetryCount(0);
+    }, [photo]);
+
+    // Custom styles for specific members whose images need adjustment
+    // Custom styles for specific members whose images need adjustment
+    const customStyles = {
+        "Aditya Patidar": { objectPosition: "60% 25%" },
+        "Vivek Kumar Taldi": { objectPosition: "50% 15%" },
+        "Deekshita Mathur": { transform: "rotate(-90deg)" }
+    };
+
+    const handleImageError = () => {
+        if (retryCount < 3 && imgSrc) {
+            setTimeout(() => {
+                setRetryCount(prev => prev + 1);
+                const separator = imgSrc.includes('?') ? '&' : '?';
+                const cleanSrc = imgSrc.replace(/[?&]retry=\d+/, '');
+                setImgSrc(`${cleanSrc}${separator}retry=${retryCount + 1}`);
+            }, 1000);
+        } else {
+            setImgSrc(dummyImage);
+        }
+    };
 
     // Helper for social links
     const SocialLink = ({ url, Icon, colorClass }) => {
@@ -42,7 +74,14 @@ const ProfileCard = ({ vertical, name, emailAddress, phoneNumber, linkedinProfil
 
                 <div className="relative">
                     <div className="w-40 h-40 rounded-full overflow-hidden border-[3px] border-[#F06F2B] group-hover:border-[#F06F2B] transition-colors shadow-lg flex-shrink-0">
-                        <img src={imageSrc} alt={name} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                        <img
+                            src={imgSrc}
+                            alt={name}
+                            onError={handleImageError}
+                            className="w-full h-full object-cover"
+                            style={customStyles[name] || {}}
+                            referrerPolicy="no-referrer"
+                        />
                     </div>
                 </div>
 

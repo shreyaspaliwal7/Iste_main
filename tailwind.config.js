@@ -8,6 +8,7 @@ export default {
     extend: {
       fontFamily: {
         paytone: ['"Paytone One"', 'sans-serif'],
+        roboto: ['"Roboto"', 'sans-serif'],
       },
       colors: {
         'footer-bg': '#151515',

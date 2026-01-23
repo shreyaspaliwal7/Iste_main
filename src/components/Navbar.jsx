@@ -12,13 +12,13 @@ const Navbar = () => {
 
   const navLinks = [
     { name: 'HOME', href: '/', type: 'link' },
-    { name: 'ABOUT US', href: '#about', type: 'hash' },
+    { name: 'ABOUT', href: '#about', type: 'hash' },
     { name: 'EVENTS', href: '#events', type: 'hash' },
     { name: 'SPONSORS', href: '#sponsors', type: 'hash' },
     location.pathname === '/new-team'
       ? { name: 'OLD TEAM', href: '/old-members', type: 'link' }
       : { name: 'OUR TEAM', href: '/new-team', type: 'link' },
-    { name: 'GALLERY', href: '/gallery', type: 'link' },
+    { name: 'MEMORIES', href: '/gallery', type: 'link' },
     { name: 'CONTACT US', href: '/contact-positions', type: 'link' },
   ];
 

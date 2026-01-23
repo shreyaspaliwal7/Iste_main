@@ -258,7 +258,7 @@ const NewTeam = () => {
                 </svg>
             </div>
 
-            <div className="relative max-w-7xl mx-auto py-24 px-4 sm:px-6 lg:px-8 z-10">
+            <div className="relative max-w-6xl mx-auto pt-36 pb-24 px-4 sm:px-6 lg:px-8 z-10">
 
 
                 {/* Final Year Section */}
@@ -267,7 +267,7 @@ const NewTeam = () => {
                         <h2 className="year-heading text-4xl font-paytone text-[#F06F2B] mb-16 text-center uppercase tracking-wider">
                             Final Year
                         </h2>
-                        <div className="team-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-2 gap-y-8 justify-items-center">
+                        <div className="team-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-1 gap-y-8 justify-items-center">
                             {finalYear.map((member, idx) => (
                                 <TeamMemberCard key={`final-${idx}`} member={member} />
                             ))}
@@ -281,7 +281,7 @@ const NewTeam = () => {
                         <h2 className="year-heading text-4xl font-paytone text-[#F06F2B] mb-16 text-center uppercase tracking-wider">
                             Third Year
                         </h2>
-                        <div className="team-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-2 gap-y-8 justify-items-center">
+                        <div className="team-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-1 gap-y-8 justify-items-center">
                             {thirdYear.map((member, idx) => (
                                 <TeamMemberCard key={`third-${idx}`} member={member} />
                             ))}
@@ -295,7 +295,7 @@ const NewTeam = () => {
                         <h2 className="year-heading text-4xl font-paytone text-[#F06F2B] mb-16 text-center uppercase tracking-wider">
                             Second Year
                         </h2>
-                        <div className="team-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-2 gap-y-8 justify-items-center">
+                        <div className="team-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-1 gap-y-8 justify-items-center">
                             {secondYear.map((member, idx) => (
                                 <TeamMemberCard key={`second-${idx}`} member={member} />
                             ))}

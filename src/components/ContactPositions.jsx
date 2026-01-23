@@ -198,7 +198,7 @@ export default function ContactPositions() {
 
             <Navbar />
 
-            <div className="relative max-w-7xl mx-auto py-24 px-4 sm:px-6 lg:px-8 z-10">
+            <div className="relative max-w-7xl mx-auto pt-36 pb-24 px-4 sm:px-6 lg:px-8 z-10">
                 <DepartmentSection title="TECHNICAL DEPARTMENT" members={sortMembers(technicalHeads)} />
                 <DepartmentSection title="CREATIVE DEPARTMENT" members={sortMembers(creativeHeads)} />
                 <DepartmentSection title="MANAGEMENT DEPARTMENT" members={sortMembers(managementHeads)} />

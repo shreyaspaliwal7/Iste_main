@@ -12,7 +12,7 @@ const Sponsors = () => {
         return () => clearTimeout(timer);
     }, []);
 
-    const images = import.meta.glob('../assets/sponsors/*.{webp,png,jpeg,jpg,svg,jfif,PNG,JPG,JPEG}', { eager: true });
+    const images = import.meta.glob('../assets/sponsors/*.{webp,svg}', { eager: true });
 
 
     const sponsorList = useMemo(() => Object.values(images).map(img => img.default), [images]);

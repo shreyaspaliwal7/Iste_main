@@ -2,7 +2,7 @@ import React from 'react';
 import { Instagram, Facebook, Twitter, Linkedin } from 'lucide-react';
 import { motion } from 'framer-motion';
 import teamData from '../../assets/TeamData2025';
-import dummyImage from '../../assets/team_img/dummy.png';
+import dummyImage from '../../assets/team_img/dummy.webp';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from "gsap/ScrollTrigger";

@@ -4,7 +4,8 @@ import ImageListItem from '@mui/material/ImageListItem';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from '@studio-freight/lenis';
-import memories1 from '../../assets/galleryImages/memories-1.JPG';
+import Link from '@mui/material/Link';
+import memories1 from '../../assets/galleryImages/memories-1.webp';
 
 // Explicit imports for Version-beta images
 import img1Webp from '../../assets/galleryImages/Version-beta/img1.webp';
@@ -21,10 +22,10 @@ const Gallery = () => {
   // Structure: galleryImages/event-name/image1.jpg, image2.jpg, etc.
   const eventImagesMap = useMemo(() => {
     const imagesMap = {};
-    
+
     // Define event names
     const eventNames = ['Version-beta', 'flair-heaven', 'anubhuti', 'chimera-x', 'codathon'];
-    
+
     // Try to load images from event-specific folders
     // Note: import.meta.glob requires static paths, so we need to check each folder separately
     try {
@@ -40,7 +41,7 @@ const Gallery = () => {
     try {
       // Flair-Haven
       const flairHavenImages = import.meta.glob(
-        '../assets/galleryImages/flair-heaven/*.{png,jpeg,jpg,svg,jfif,PNG,JPG,JPEG}',
+        '../assets/galleryImages/flair-heaven/*.{webp,svg}',
         { eager: true }
       );
       if (Object.keys(flairHavenImages).length > 0) {
@@ -54,7 +55,7 @@ const Gallery = () => {
     try {
       // Anubhuti
       const anubhutiImages = import.meta.glob(
-        '../assets/galleryImages/anubhuti/*.{png,jpeg,jpg,svg,jfif,PNG,JPG,JPEG}',
+        '../assets/galleryImages/anubhuti/*.{webp,svg}',
         { eager: true }
       );
       if (Object.keys(anubhutiImages).length > 0) {
@@ -68,7 +69,7 @@ const Gallery = () => {
     try {
       // Chimera-X
       const chimeraXImages = import.meta.glob(
-        '../assets/galleryImages/chimera-x/*.{png,jpeg,jpg,svg,jfif,PNG,JPG,JPEG}',
+        '../assets/galleryImages/chimera-x/*.{webp,svg}',
         { eager: true }
       );
       if (Object.keys(chimeraXImages).length > 0) {
@@ -82,7 +83,7 @@ const Gallery = () => {
     try {
       // Codathon
       const codathonImages = import.meta.glob(
-        '../assets/galleryImages/codathon/*.{png,jpeg,jpg,svg,jfif,PNG,JPG,JPEG}',
+        '../assets/galleryImages/codathon/*.{webp,svg}',
         { eager: true }
       );
       if (Object.keys(codathonImages).length > 0) {
@@ -92,21 +93,21 @@ const Gallery = () => {
       console.warn('Could not load images for codathon:', error);
       imagesMap['codathon'] = [];
     }
-    
+
     // Fallback: Load all images from main galleryImages folder if event folders don't exist
     if (Object.keys(imagesMap).length === 0) {
       try {
         const allImages = import.meta.glob(
-          '../assets/galleryImages/*.{png,jpeg,jpg,svg,jfif,PNG,JPG,JPEG}',
+          '../assets/galleryImages/*.{webp,svg}',
           { eager: true }
         );
-        
+
         const imageArray = Object.values(allImages).map(img => {
           if (typeof img === 'string') return img;
           if (img.default) return img.default;
           return img;
         }).filter(Boolean);
-        
+
         // If images are found in main folder, distribute them (you can manually organize them later)
         if (imageArray.length > 0) {
           console.log('Found images in main folder, distributing across events');
@@ -121,7 +122,7 @@ const Gallery = () => {
         console.error('Error loading gallery images:', error);
       }
     }
-    
+
     console.log('Event images map:', imagesMap);
     return imagesMap;
   }, []);
@@ -163,10 +164,10 @@ const Gallery = () => {
 
     // GSAP Animations for gallery sections
     const gallerySections = gsap.utils.toArray('.gallery-masonry');
-    
+
     gallerySections.forEach((section) => {
       const images = section.querySelectorAll('.gallery-item');
-      
+
       // Set initial states
       gsap.set(images, {
         opacity: 0,

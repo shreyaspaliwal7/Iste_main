@@ -21,7 +21,7 @@ const AboutPage = () => {
 
                 {/* --- First Section --- */}
                 <div className="bg-black/70 top-16 p-10 rounded-[2.5rem] shadow-xl relative">
-                    <section className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start flex items-center justify-center">
+                    <section className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                         <div className="space-y-4">
                             {/* Dark Image Container */}
 

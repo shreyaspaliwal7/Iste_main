@@ -66,7 +66,7 @@ const Navbar = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 bg-black/60 z-[60] backdrop-blur-sm md:hidden"
+            className="fixed inset-0 bg-black/60 z-[60] backdrop-blur-sm lg:hidden"
             onClick={() => setIsOpen(false)}
           />
 
@@ -76,7 +76,7 @@ const Navbar = () => {
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: -100, opacity: 0 }}
             transition={{ duration: 0.4, ease: "easeOut" }}
-            className="fixed inset-y-0 left-0 w-64 z-[70] bg-black/95 border-r border-white/10 shadow-2xl pt-8 px-6 md:hidden overflow-y-auto"
+            className="fixed inset-y-0 left-0 w-64 z-[70] bg-black/95 border-r border-white/10 shadow-2xl pt-8 px-6 lg:hidden overflow-y-auto"
           >
             <div className="flex justify-end mb-8">
               <button onClick={toggleMenu} className="text-white hover:text-[#f06f2b] transition-colors">
@@ -137,7 +137,7 @@ const Navbar = () => {
           />
 
 
-          <ul className="hidden md:flex items-center gap-8 lg:gap-6">
+          <ul className="hidden lg:flex items-center gap-8 lg:gap-6">
             {navLinks.map((link) => (
               <li key={link.name}>
                 <a
@@ -152,7 +152,7 @@ const Navbar = () => {
           </ul>
 
 
-          <div className="md:hidden flex items-center">
+          <div className="lg:hidden flex items-center">
             <button
               onClick={toggleMenu}
               className="text-white p-2 focus:outline-none"

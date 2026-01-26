@@ -1,18 +1,18 @@
 // Import team images
-import anjaneyImg from '../assets/team_img/Team__Download/anjaney.jpeg';
-import anuragImg from '../assets/team_img/Team__Download/anurag.jpeg';
-import gautumImg from '../assets/team_img/Team__Download/gautum.jpg';
-import ashayImg from '../assets/team_img/ashay.jpg';
-import bharatImg from '../assets/team_img/Team__Download/bharat.jpg';
-import mandeImg from '../assets/team_img/Team__Download/mande.jpg';
-import samyuktaImg from '../assets/team_img/Team__Download/samyukta.jpeg';
-import viditImg from '../assets/team_img/Team__Download/vidit.jpeg';
-import danishaImg from '../assets/team_img/DanishaRaj.jpg';
-import jatinImg from '../assets/team_img/Team__Download/jatin.jpg';
-import vibhutiImg from '../assets/team_img/Team__Download/vibhuti.jpg';
-import pradhumanImg from '../assets/team_img/Team__Download/pradhuman.jpeg';
-import brainGenixImg from '../assets/team_img/Team__Download/IMG_20221106_200854 - Brain Genix.jpg';
-import yuvrajImg from '../assets/team_img/Team__Download/yuvraj.jpg';
+import anjaneyImg from '../assets/team_img/Team__Download/anjaney.webp';
+import anuragImg from '../assets/team_img/Team__Download/anurag.webp';
+import gautumImg from '../assets/team_img/Team__Download/gautum.webp';
+import ashayImg from '../assets/team_img/ashay.webp';
+import bharatImg from '../assets/team_img/Team__Download/bharat.webp';
+import mandeImg from '../assets/team_img/Team__Download/mande.webp';
+import samyuktaImg from '../assets/team_img/Team__Download/samyukta.webp';
+import viditImg from '../assets/team_img/Team__Download/vidit.webp';
+import danishaImg from '../assets/team_img/DanishaRaj.webp';
+import jatinImg from '../assets/team_img/Team__Download/jatin.webp';
+import vibhutiImg from '../assets/team_img/Team__Download/vibhuti.webp';
+import pradhumanImg from '../assets/team_img/Team__Download/pradhuman.webp';
+import brainGenixImg from '../assets/team_img/Team__Download/IMG_20221106_200854 - Brain Genix.webp';
+import yuvrajImg from '../assets/team_img/Team__Download/yuvraj.webp';
 
 const data = [
 	{

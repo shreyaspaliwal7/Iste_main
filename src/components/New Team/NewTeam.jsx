@@ -2,7 +2,19 @@ import React from 'react';
 import { Instagram, Facebook, Twitter, Linkedin } from 'lucide-react';
 import { motion } from 'framer-motion';
 import teamData from '../../assets/TeamData2025';
-import dummyImage from '../../assets/team_img/dummy.png';
+import dummyImage from '../../assets/team_img/dummy.webp';
+import anjaneyImg from '../../assets/team_img/Team__Download/anjaney.webp';
+import anuragImg from '../../assets/team_img/Team__Download/anurag.webp';
+import bharatImg from '../../assets/team_img/Team__Download/bharat.webp';
+import gautumImg from '../../assets/team_img/Team__Download/gautum.webp';
+import jatinImg from '../../assets/team_img/Team__Download/jatin.webp';
+import mandeImg from '../../assets/team_img/Team__Download/mande.webp';
+import pradhumanImg from '../../assets/team_img/Team__Download/pradhuman.webp';
+import samyuktaImg from '../../assets/team_img/Team__Download/samyukta.webp';
+import suyashImg from '../../assets/team_img/Team__Download/suyash.webp';
+import vibhutiImg from '../../assets/team_img/Team__Download/vibhuti.webp';
+import viditImg from '../../assets/team_img/Team__Download/vidit.webp';
+import yuvrajImg from '../../assets/team_img/Team__Download/yuvraj.webp';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -14,9 +26,41 @@ const TeamMemberCard = ({ member }) => {
     const [imgSrc, setImgSrc] = useState(null);
     const [retryCount, setRetryCount] = useState(0);
 
+    // Map of names to local images
+    const localImages = {
+        "Anjaney": anjaneyImg,
+        "Ananjey": anjaneyImg, // Handle typo if present in data
+        "Anurag Singh": anuragImg,
+        "Bharat": bharatImg,
+        "Bharat Soni": bharatImg,
+        "Gautum": gautumImg, // Adjust based on exact name if needed
+        "Jatin Baiswar": jatinImg,
+        "P Mande": mandeImg, // Mande
+        "Pradhuman": pradhumanImg,
+        "Pradhuman Tiwari": pradhumanImg,
+        "Samyukta": samyuktaImg,
+        "Samyukta Nema": samyuktaImg,
+        "Suyash Bedarkar": suyashImg,
+        "Suyash Bedarkar ": suyashImg,
+        "Vibhuti": vibhutiImg,
+        "Vibhuti Chandrakar": vibhutiImg,
+        "Vidit": viditImg,
+        "Vidit Jain": viditImg,
+        "Yuvraj": yuvrajImg,
+        "Yuvraj Singh": yuvrajImg
+    };
+
     useEffect(() => {
         // Convert Google Drive links to thumbnail links
         let photoUrl = member.photo;
+
+        // Check for local image first
+        // Normalizing name for check
+        const normalizedName = member.name.trim();
+        if (localImages[normalizedName] || localImages[member.name]) {
+            setImgSrc(localImages[normalizedName] || localImages[member.name]);
+            return;
+        }
 
         if (!photoUrl || photoUrl.trim() === "") {
             setImgSrc(dummyImage);

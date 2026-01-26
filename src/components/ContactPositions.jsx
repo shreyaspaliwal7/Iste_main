@@ -1,7 +1,7 @@
 import { Facebook, Instagram, Linkedin, Twitter } from 'lucide-react';
 import Navbar from "./Navbar";
 import { technicalHeads, creativeHeads, managementHeads } from '../assets/VerticalHeads';
-import dummyImage from '../assets/team_img/dummy.png';
+import dummyImage from '../assets/team_img/dummy.webp';
 import { useState, useEffect } from 'react';
 
 const ProfileCard = ({ vertical, name, emailAddress, phoneNumber, linkedinProfile, instagramProfile, facebookProfile, xProfile, photo }) => {

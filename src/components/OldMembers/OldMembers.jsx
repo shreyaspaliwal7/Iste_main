@@ -257,7 +257,7 @@ const OldMembers = () => {
               className="mt-6 bg-[#0f0f0f] rounded-3xl p-6 md:p-8 border border-[#F06F2B]/60 shadow-[0_25px_50px_rgba(0,0,0,0.35)]"
             >
               {members.length > 0 ? (
-                <div className="team-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
+                <div className="team-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-2 gap-y-8 justify-items-center">
                   {members.map((member) => (
                     <ProfileCard key={member.id} member={member} />
                   ))}

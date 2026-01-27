@@ -68,9 +68,9 @@ const ProfileCard = ({ vertical, name, emailAddress, phoneNumber, linkedinProfil
     };
 
     return (
-        <div className="relative p-6 border border-gray-800 bg-white/5 rounded-3xl w-full max-w-xl mx-auto group hover:border-[#F06F2B] transition-all duration-300 overflow-hidden shadow-lg hover:-translate-y-1 hover:scale-[1.01] hover:shadow-[0_0_25px_rgba(240,111,43,0.3)]">
+        <div className="relative p-4 md:p-6 border border-gray-800 bg-white/5 rounded-3xl w-full max-w-xl mx-auto group hover:border-[#F06F2B] transition-all duration-300 overflow-hidden shadow-lg hover:-translate-y-1 hover:scale-[1.01] hover:shadow-[0_0_25px_rgba(240,111,43,0.3)]">
 
-            <div className="flex flex-col md:flex-row items-center gap-6 pl-4">
+            <div className="flex flex-col md:flex-row items-center gap-6 md:pl-4">
 
                 <div className="relative">
                     <div className="w-40 h-40 rounded-full overflow-hidden border-[3px] border-[#F06F2B] group-hover:border-[#F06F2B] transition-colors shadow-lg flex-shrink-0">
@@ -86,32 +86,32 @@ const ProfileCard = ({ vertical, name, emailAddress, phoneNumber, linkedinProfil
                 </div>
 
 
-                <div className="flex-1 space-y-4 text-left w-full overflow-hidden">
-                    <div className="flex items-center gap-2 mb-3">
+                <div className="flex-1 space-y-4 text-center md:text-left w-full overflow-hidden">
+                    <div className="flex items-center justify-center md:justify-start gap-2 mb-3">
                         <h3 className="text-white font-paytone text-lg uppercase tracking-wider">{vertical?.replace('Heads', 'Head')}</h3>
                     </div>
 
                     <div className="space-y-3 text-base font-sans text-gray-300">
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center justify-center md:justify-start gap-2">
                             <span className="font-bold text-[#F06F2B] flex-shrink-0">Name:</span>
-                            <span className="truncate">{name}</span>
+                            <span className="break-words md:truncate">{name}</span>
                         </div>
                         {emailAddress && (
-                            <div className="flex items-center gap-2 min-w-0">
+                            <div className="flex items-center justify-center md:justify-start gap-2 min-w-0">
                                 <span className="font-bold text-[#F06F2B] flex-shrink-0">Email:</span>
-                                <span className="truncate block">{emailAddress}</span>
+                                <span className="break-all md:truncate block text-xs sm:text-sm md:text-base">{emailAddress}</span>
                             </div>
                         )}
                         {phoneNumber && (
-                            <div className="flex items-center gap-2 min-w-0">
+                            <div className="flex items-center justify-center md:justify-start gap-2 min-w-0">
                                 <span className="font-bold text-[#F06F2B] flex-shrink-0">Phone:</span>
-                                <span className="truncate block">{phoneNumber}</span>
+                                <span className="break-words md:truncate block">{phoneNumber}</span>
                             </div>
                         )}
                     </div>
 
 
-                    <div className="flex gap-4 mt-5 pt-2">
+                    <div className="flex justify-center md:justify-start gap-4 mt-5 pt-2">
                         <SocialLink url={instagramProfile} Icon={Instagram} colorClass="text-pink-400" />
                         <SocialLink url={facebookProfile} Icon={Facebook} colorClass="text-blue-400" />
                         <SocialLink url={xProfile} Icon={Twitter} colorClass="text-sky-400" />
@@ -130,7 +130,7 @@ const DepartmentSection = ({ title, members }) => {
             <h2 className="text-3xl font-paytone text-[#F06F2B] mb-10 text-center uppercase tracking-wider">
                 {title}
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto px-4">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto px-4">
                 {members.map((member, index) => (
                     <ProfileCard key={index} {...member} />
                 ))}

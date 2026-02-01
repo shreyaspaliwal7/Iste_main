@@ -132,8 +132,8 @@ const Gallery = () => {
   return (
     <div ref={pageRef} className="min-h-screen bg-black text-white py-20 px-4 sm:px-6 md:px-10">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-4xl sm:text-5xl md:text-6xl text-center font-bold text-[#F06F2B] mb-16">
-          Gallery
+        <h1 className="text-4xl sm:text-5xl md:text-6xl text-center font-bold text-[#F06F2B] mt-12 mb-16">
+          Memories
         </h1>
 
         <div className="space-y-20">

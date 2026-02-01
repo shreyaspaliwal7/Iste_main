@@ -295,7 +295,7 @@ const OldMembers = () => {
         <div className="mb-14">
           <div className="mb-6"></div>
           <CollapsibleSection
-            year="Batch - 2024"
+            year="Batch - 2025"
             isOpen={showYear2024}
             onToggle={() => setShowYear2024((prev) => !prev)}
             members={year2024Members}
@@ -306,7 +306,7 @@ const OldMembers = () => {
         <div className="mb-14">
           <div className="mb-6"></div>
           <CollapsibleSection
-            year="Batch - 2023"
+            year="Batch - 2024"
             isOpen={showYear2023}
             onToggle={() => setShowYear2023((prev) => !prev)}
             members={year2023Members}
@@ -317,7 +317,7 @@ const OldMembers = () => {
         <div className="mb-14">
           <div className="mb-6"></div>
           <CollapsibleSection
-            year="Batch - 2022"
+            year="Batch - 2023"
             isOpen={showYear2022}
             onToggle={() => setShowYear2022((prev) => !prev)}
             members={year2022Members}
